@@ -1,0 +1,7 @@
+<Solution>
+  <Configurations>
+    <Platform Name="x64" />
+    <Platform Name="x86" />
+  </Configurations>
+  <Project Path="Breakout_SDL3/Breakout_SDL3.vcxproj" Id="5f063306-9f47-4693-bc9b-30a915604283" />
+</Solution>
