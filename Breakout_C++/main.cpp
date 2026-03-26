@@ -14,9 +14,9 @@ int main(int arg, char* argv[]) {
 	Uint64 lastTick = SDL_GetTicks();
 	deltaTime(lastTick);
 	
-	SDL_Color color = { 255, 0, 0, 255 }; // Not worth making a function just to create a pointer
+	SDL_Color color = { 255, 0, 0, 255 }; 
 	SDL_FRect rect = { 640, 640, paddleLength, 10 };
-	auto paddle = std::make_shared<Rectangle>(rect, state.renderer, color);
+	auto paddle = std::make_shared<Rectangle>(rect, state.renderer, color); // Not worth making a function just to create a pointer
 
 	while (running) {
 

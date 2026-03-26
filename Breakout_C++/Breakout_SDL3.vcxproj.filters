@@ -13,6 +13,12 @@
       <UniqueIdentifier>{67DA6AB6-F800-4c08-8B7A-83BB121AAD01}</UniqueIdentifier>
       <Extensions>rc;ico;cur;bmp;dlg;rc2;rct;bin;rgs;gif;jpg;jpeg;jpe;resx;tiff;tif;png;wav;mfcribbon-ms</Extensions>
     </Filter>
+    <Filter Include="Archivos de origen\Class_Definition">
+      <UniqueIdentifier>{5ef0ddb6-830c-428d-968d-c93fdfdbbed6}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Archivos de encabezado\Class_Declaration">
+      <UniqueIdentifier>{7ceedf48-e02f-48ed-9a39-86ad7ec47c32}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="main.cpp">
@@ -22,7 +28,7 @@
       <Filter>Archivos de origen</Filter>
     </ClCompile>
     <ClCompile Include="rectangle.cpp">
-      <Filter>Archivos de origen</Filter>
+      <Filter>Archivos de origen\Class_Definition</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -30,7 +36,7 @@
       <Filter>Archivos de encabezado</Filter>
     </ClInclude>
     <ClInclude Include="rectangle.hpp">
-      <Filter>Archivos de encabezado</Filter>
+      <Filter>Archivos de encabezado\Class_Declaration</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>
