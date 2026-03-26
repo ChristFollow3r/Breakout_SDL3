@@ -1,6 +1,7 @@
 #pragma once
 #include <SDL3/SDL.h>
-#include "manager.hpp"
+
+struct SDLState; // I had to ask AI this. I was having truble with circular libraries
 
 class Rectangle {
 

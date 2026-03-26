@@ -19,7 +19,7 @@ int main(int arg, char* argv[]) {
 	
 	SDL_Color color = { 255, 0, 0, 255 };
 	SDL_FRect rect = { 640, 640, paddleLength, 10 };
-	auto rectangleTest = std::make_shared<Rectangle>(rect, state.renderer, color);
+	auto paddle = std::make_shared<Rectangle>(rect, state.renderer, color);
 
 	while (running) {
 
@@ -38,19 +38,13 @@ int main(int arg, char* argv[]) {
 		float dt = deltaTime(lastTick);
 
 		const bool* keys = SDL_GetKeyboardState(nullptr);
-		if (keys[SDL_SCANCODE_A]) rectangleTest->rect.x -= (paddleSpeed * dt);
-		if (keys[SDL_SCANCODE_D]) rectangleTest->rect.x += (paddleSpeed * dt);
+		if (keys[SDL_SCANCODE_A]) paddle->rect.x -= (paddleSpeed * dt);
+		if (keys[SDL_SCANCODE_D]) paddle->rect.x += (paddleSpeed * dt);
 
+		if (paddle->rect.x + paddleLength >= width) paddle->rect.x = rightLimit;
+		if (paddle->rect.x < 0) paddle->rect.x = leftLimit;
 
-		if (rectangleTest->rect.x + paddleLength >= width) rectangleTest->rect.x = rightLimit;
-		if (rectangleTest->rect.x < 0) rectangleTest->rect.x = leftLimit;
-
-		SDL_SetRenderDrawColor(state.renderer, 0, 0, 0, 255);
-		SDL_RenderClear(state.renderer);
-		rectangleTest->draw(state, rectangleTest->rect, color);
-		SDL_RenderPresent(state.renderer);
-
-		//render(state);
+		render(state, paddle);
 
 	}
 

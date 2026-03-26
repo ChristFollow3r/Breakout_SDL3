@@ -1,5 +1,7 @@
 #pragma once
 #include <SDL3/SDL.h>
+#include <memory>
+#include "rectangle.hpp"
 
 struct SDLState {
 	SDL_Window* window;
@@ -7,7 +9,7 @@ struct SDLState {
 };
 
 void initialize(SDLState& state);
-//void render(SDLState& state);
+void render(SDLState& state, std::shared_ptr<Rectangle> paddle); // I don't know if doing a function for this is the right move
 float deltaTime(Uint64& lastTick);
 void cleanUp(SDLState& state);
 

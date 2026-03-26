@@ -26,9 +26,10 @@ float deltaTime(Uint64& lastTick) {
 	return static_cast<float>(elapedTick / 1000.0f);
 }
 
-void render(SDLState& state) {
+void render(SDLState& state, std::shared_ptr<Rectangle> paddle) {
 	SDL_SetRenderDrawColor(state.renderer, 0, 0, 0, 255);
 	SDL_RenderClear(state.renderer);
+	paddle->draw(state, paddle->rect, paddle->color);
 	SDL_RenderPresent(state.renderer);
 }
 
