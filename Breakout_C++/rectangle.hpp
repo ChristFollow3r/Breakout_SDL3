@@ -12,5 +12,5 @@ public:
 
 	Rectangle(SDL_FRect rect, SDL_Renderer* renderer, SDL_Color color) : rect(rect), renderer(renderer), color(color) {};
 
-	void draw(SDLState state, SDL_FRect rect);
+	void draw(SDLState state, SDL_FRect rect, SDL_Color color);
 };

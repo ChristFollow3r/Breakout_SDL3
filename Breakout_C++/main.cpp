@@ -32,9 +32,9 @@ int main(int arg, char* argv[]) {
 
 		SDL_SetRenderDrawColor(state.renderer, 0, 0, 0, 255);
 		SDL_RenderClear(state.renderer);
-		SDL_SetRenderDrawColor(state.renderer, color.r, color.g, color.b, color.a);
-		rectangleTest->draw(state, rect);
+		rectangleTest->draw(state, rect, color);
 		SDL_RenderPresent(state.renderer);
+
 		//render(state);
 
 	}
