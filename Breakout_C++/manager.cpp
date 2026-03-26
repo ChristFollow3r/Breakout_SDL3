@@ -2,9 +2,6 @@
 
 void initialize(SDLState& state){
 
-	int width = 1280;
-	int height = 720;
-
 	state.window = SDL_CreateWindow("Breakout", width, height, NULL);
 	state.renderer = SDL_CreateRenderer(state.window, nullptr);
 
@@ -19,6 +16,14 @@ void initialize(SDLState& state){
 	if (!state.renderer) {
 		SDL_ShowSimpleMessageBox(SDL_MESSAGEBOX_ERROR, "Error", "Error initializingh renderer.", nullptr);
 	}
+}
+
+float deltaTime(Uint64& lastTick) {
+	Uint64 currentTick = SDL_GetTicks();
+	Uint64 elapedTick = currentTick - lastTick;
+	lastTick = currentTick;
+
+	return static_cast<float>(elapedTick / 1000.0f);
 }
 
 void render(SDLState& state) {
