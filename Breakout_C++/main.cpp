@@ -39,7 +39,7 @@ int main(int arg, char* argv[]) {
 
 		float dt = deltaTime(lastTick);
 
-		ball->UpdateBallPhysics(dt);
+		ball->UpdateBallPhysics(dt, paddle);
 		paddleMovement(paddle, dt);
 		paddleBorderCollisions(paddle);
 
