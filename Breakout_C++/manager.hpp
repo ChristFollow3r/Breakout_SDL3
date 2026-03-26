@@ -6,6 +6,6 @@ struct SDLState {
 	SDL_Renderer* renderer;
 };
 
-
 void initialize(SDLState& state);
-void cleanup(SDLState& state);
+//void render(SDLState& state);
+void cleanUp(SDLState& state);
