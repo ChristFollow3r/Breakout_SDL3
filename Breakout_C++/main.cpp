@@ -3,6 +3,7 @@
 #include <memory>
 #include "manager.hpp"
 #include "rectangle.hpp"
+#include "ball.hpp"
 
 int main(int arg, char* argv[]) {
 	
@@ -14,9 +15,13 @@ int main(int arg, char* argv[]) {
 	Uint64 lastTick = SDL_GetTicks();
 	deltaTime(lastTick);
 	
-	SDL_Color color = { 255, 0, 0, 255 }; 
+	SDL_Color paddleColor = { 255, 0, 0, 255 }; 
 	SDL_FRect rect = { 640, 640, paddleLength, 10 };
-	auto paddle = std::make_shared<Rectangle>(rect, state.renderer, color); // Not worth making a function just to create a pointer
+	auto paddle = std::make_shared<Rectangle>(rect, state.renderer, paddleColor); // Not worth making a function just to create a pointer
+
+	SDL_Color ballColor = { 30, 144, 255, 255 };
+	rect = { 520, 30, 10, 10 };
+	auto ball = std::make_shared<Ball>(rect, state.renderer, ballColor);
 
 	while (running) {
 
@@ -34,10 +39,11 @@ int main(int arg, char* argv[]) {
 
 		float dt = deltaTime(lastTick);
 
+		ball->UpdateBallPhysics(dt);
 		paddleMovement(paddle, dt);
 		paddleBorderCollisions(paddle);
 
-		render(state, paddle);
+		render(state, paddle, ball);
 
 	}
 

@@ -18,9 +18,10 @@ void initialize(SDLState& state){
 	}
 }
 
-void render(SDLState& state, std::shared_ptr<Rectangle> paddle) {
-	SDL_SetRenderDrawColor(state.renderer, 0, 0, 0, 255);
+void render(SDLState& state, std::shared_ptr<Rectangle> paddle, std::shared_ptr<Rectangle> ball) {
+	SDL_SetRenderDrawColor(state.renderer, 255, 255, 255, 255);
 	SDL_RenderClear(state.renderer);
+	ball->draw(state, ball->rect, ball->color);
 	paddle->draw(state, paddle->rect, paddle->color);
 	SDL_RenderPresent(state.renderer);
 }

@@ -17,7 +17,7 @@ struct SDLState {
 };
 
 void initialize(SDLState& state);
-void render(SDLState& state, std::shared_ptr<Rectangle> paddle);
+void render(SDLState& state, std::shared_ptr<Rectangle> paddle, std::shared_ptr<Rectangle> ball);
 
 void paddleMovement(std::shared_ptr<Rectangle> paddle, float dt);
 void paddleBorderCollisions(std::shared_ptr<Rectangle> paddle);

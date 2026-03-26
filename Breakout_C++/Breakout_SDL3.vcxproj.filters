@@ -30,12 +30,18 @@
     <ClCompile Include="rectangle.cpp">
       <Filter>Archivos de origen\Class_Definition</Filter>
     </ClCompile>
+    <ClCompile Include="ball.cpp">
+      <Filter>Archivos de origen\Class_Definition</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="manager.hpp">
       <Filter>Archivos de encabezado</Filter>
     </ClInclude>
     <ClInclude Include="rectangle.hpp">
+      <Filter>Archivos de encabezado\Class_Declaration</Filter>
+    </ClInclude>
+    <ClInclude Include="ball.hpp">
       <Filter>Archivos de encabezado\Class_Declaration</Filter>
     </ClInclude>
   </ItemGroup>
