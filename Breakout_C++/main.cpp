@@ -11,6 +11,8 @@ int main(int arg, char* argv[]) {
 
 	bool running = true;
 	int paddleLength = 100;
+	int rightLimit = width - paddleLength;
+	int leftLimit = 0;
 
 	Uint64 lastTick = SDL_GetTicks();
 	deltaTime(lastTick);
@@ -38,7 +40,10 @@ int main(int arg, char* argv[]) {
 		const bool* keys = SDL_GetKeyboardState(nullptr);
 		if (keys[SDL_SCANCODE_A]) rectangleTest->rect.x -= (paddleSpeed * dt);
 		if (keys[SDL_SCANCODE_D]) rectangleTest->rect.x += (paddleSpeed * dt);
-		if (rectangleTest->rect.x + paddleLength >= width) rectangleTest->rect.x = width - paddleLength;
+
+
+		if (rectangleTest->rect.x + paddleLength >= width) rectangleTest->rect.x = rightLimit;
+		if (rectangleTest->rect.x < 0) rectangleTest->rect.x = leftLimit;
 
 		SDL_SetRenderDrawColor(state.renderer, 0, 0, 0, 255);
 		SDL_RenderClear(state.renderer);
