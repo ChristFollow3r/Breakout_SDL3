@@ -1,7 +1,15 @@
 #pragma once
 #include <SDL3/SDL.h>
+#include <iostream>
 #include <memory>
 #include "rectangle.hpp"
+
+const int width = 1280;
+const int height = 720;
+const float paddleSpeed = 500.0f;
+const int paddleLength = 100;
+const int rightLimit = width - paddleLength;
+const int leftLimit = 0;
 
 struct SDLState {
 	SDL_Window* window;
@@ -9,10 +17,11 @@ struct SDLState {
 };
 
 void initialize(SDLState& state);
-void render(SDLState& state, std::shared_ptr<Rectangle> paddle); // I don't know if doing a function for this is the right move
+void render(SDLState& state, std::shared_ptr<Rectangle> paddle);
+
+void paddleMovement(std::shared_ptr<Rectangle> paddle, float dt);
+void paddleBorderCollisions(std::shared_ptr<Rectangle> paddle);
+
 float deltaTime(Uint64& lastTick);
 void cleanUp(SDLState& state);
 
-const int width = 1280;
-const int height = 720;
-const float paddleSpeed = 500.0f;

@@ -10,14 +10,11 @@ int main(int arg, char* argv[]) {
 	initialize(state);
 
 	bool running = true;
-	int paddleLength = 100;
-	int rightLimit = width - paddleLength;
-	int leftLimit = 0;
 
 	Uint64 lastTick = SDL_GetTicks();
 	deltaTime(lastTick);
 	
-	SDL_Color color = { 255, 0, 0, 255 };
+	SDL_Color color = { 255, 0, 0, 255 }; // Not worth making a function just to create a pointer
 	SDL_FRect rect = { 640, 640, paddleLength, 10 };
 	auto paddle = std::make_shared<Rectangle>(rect, state.renderer, color);
 
@@ -37,12 +34,8 @@ int main(int arg, char* argv[]) {
 
 		float dt = deltaTime(lastTick);
 
-		const bool* keys = SDL_GetKeyboardState(nullptr);
-		if (keys[SDL_SCANCODE_A]) paddle->rect.x -= (paddleSpeed * dt);
-		if (keys[SDL_SCANCODE_D]) paddle->rect.x += (paddleSpeed * dt);
-
-		if (paddle->rect.x + paddleLength >= width) paddle->rect.x = rightLimit;
-		if (paddle->rect.x < 0) paddle->rect.x = leftLimit;
+		paddleMovement(paddle, dt);
+		paddleBorderCollisions(paddle);
 
 		render(state, paddle);
 

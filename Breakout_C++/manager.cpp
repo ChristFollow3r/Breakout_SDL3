@@ -18,19 +18,30 @@ void initialize(SDLState& state){
 	}
 }
 
+void render(SDLState& state, std::shared_ptr<Rectangle> paddle) {
+	SDL_SetRenderDrawColor(state.renderer, 0, 0, 0, 255);
+	SDL_RenderClear(state.renderer);
+	paddle->draw(state, paddle->rect, paddle->color);
+	SDL_RenderPresent(state.renderer);
+}
+
+void paddleMovement(std::shared_ptr<Rectangle> paddle, float dt) {
+	const bool* keys = SDL_GetKeyboardState(nullptr);
+	if (keys[SDL_SCANCODE_A]) paddle->rect.x -= (paddleSpeed * dt);
+	if (keys[SDL_SCANCODE_D]) paddle->rect.x += (paddleSpeed * dt);
+}
+
+void paddleBorderCollisions(std::shared_ptr<Rectangle> paddle) {
+	if (paddle->rect.x + paddleLength >= width) paddle->rect.x = rightLimit;
+	if (paddle->rect.x < 0) paddle->rect.x = leftLimit;
+}
+
 float deltaTime(Uint64& lastTick) {
 	Uint64 currentTick = SDL_GetTicks();
 	Uint64 elapedTick = currentTick - lastTick;
 	lastTick = currentTick;
 
 	return static_cast<float>(elapedTick / 1000.0f);
-}
-
-void render(SDLState& state, std::shared_ptr<Rectangle> paddle) {
-	SDL_SetRenderDrawColor(state.renderer, 0, 0, 0, 255);
-	SDL_RenderClear(state.renderer);
-	paddle->draw(state, paddle->rect, paddle->color);
-	SDL_RenderPresent(state.renderer);
 }
 
 void cleanUp(SDLState& state) {
