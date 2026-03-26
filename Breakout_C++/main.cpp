@@ -11,6 +11,9 @@ int main(int arg, char* argv[]) {
 
 	bool running = true;
 	
+	SDL_Color color = { 255, 0, 0, 255 };
+	SDL_FRect rect = { 100, 100, 100, 100 };
+	auto rectangleTest = std::make_shared<Rectangle>(rect, state.renderer, color);
 
 	while (running) {
 
@@ -18,21 +21,23 @@ int main(int arg, char* argv[]) {
 
 		while (SDL_PollEvent(&event)) {
 			switch (event.type) {
+
 			case SDL_EVENT_QUIT:
 				cleanUp(state);
 				running = false;
+				break;
+
+			case SDL_EVENT_KEY_DOWN:
+				if (event.key.key == SDLK_A) rectangleTest->rect.x += 1.0f;
 				break;
 			}
 		}
 
 
-		SDL_Color color = { 255, 0, 0, 255 };
-		SDL_FRect rect = { 100, 100, 100, 100 };
-		auto rectangleTest = std::make_shared<Rectangle>(rect, state.renderer, color);
 
 		SDL_SetRenderDrawColor(state.renderer, 0, 0, 0, 255);
 		SDL_RenderClear(state.renderer);
-		rectangleTest->draw(state, rect, color);
+		rectangleTest->draw(state, rectangleTest->rect, color);
 		SDL_RenderPresent(state.renderer);
 
 		//render(state);
