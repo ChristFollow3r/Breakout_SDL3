@@ -25,10 +25,15 @@ int main(int arg, char* argv[]) {
 	rect = { 720, 550, Ball::ballSize , Ball::ballSize };
 	auto ball = std::make_shared<Ball>(rect, state.renderer, ballColor);
 	ball->ballYSpeed = -ball->ballYSpeed;
+	
+	float waitTimer = 0.0f;
+
+	createBricks(state);	
 
 	while (running) {
 
 		SDL_Event event{0};
+		float dt = deltaTime(lastTick);
 
 		while (SDL_PollEvent(&event)) {
 			switch (event.type) {
@@ -39,18 +44,15 @@ int main(int arg, char* argv[]) {
 				break;
 			}
 		}
+		
+		waitTimer += dt;
 
-		createBricks(state);
-		float dt = deltaTime(lastTick);
+		if (waitTimer > 5.0f) ball->UpdateBallPhysics(dt, paddle);
 
-		ball->UpdateBallPhysics(dt, paddle);
 		paddleMovement(paddle, dt);
 		paddleBorderCollisions(paddle);
-		auto brickHit = brickCollisions(gridOfBricks, ball);
+		if (brickCollisions(gridOfBricks, ball)) ball->ballYSpeed = -ball->ballYSpeed; // I made a bouncing on the sides version of this function but it was too unreliable so I scrapped it
 
-		if (brickHit.first) ball-> ballXSpeed = -ball->ballXSpeed;
-		else if (brickHit.second) ball->ballYSpeed = -ball->ballYSpeed;
-		
 		render(state, paddle, ball, gridOfBricks);
 
 	}

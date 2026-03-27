@@ -35,24 +35,24 @@ std::vector<std::vector<std::shared_ptr<Brick>>> createBricks(SDLState& state) {
 
 	std::vector<std::vector<std::shared_ptr<Brick>>> gridOfBricks;
 
-	float xStarterPosition = 70;
+	float xStarterPosition = 25;
 
-	float xUpdatedPosition = 70;
+	float xUpdatedPosition = 25;
 	float yUpdatedPosition = 40;
 
-	int brickWidth = 72;
-	int brickHeight = 30;
+	int brickWidth = 90;
+	int brickHeight = 40;
 
-	float xOffset = 10;
+	float xOffset = 5;
 	float yOffset = 5;
 
 	SDL_Color brickColor = { 60, 125, 68, 255 };
 
-	for (int i = 0; i < 12; i++)
+	for (int i = 0; i < 8; i++)
 	{
 		std::vector<std::shared_ptr<Brick>> temp;
 
-		for (int j = 0; j < 14; j++)
+		for (int j = 0; j < 13; j++)
 		{
 			SDL_FRect brickRect = { xUpdatedPosition, yUpdatedPosition, brickWidth, brickHeight };
 			auto brick = std::make_shared<Brick>(brickRect, state.renderer, brickColor);
@@ -80,44 +80,21 @@ void paddleBorderCollisions(std::shared_ptr<Rectangle> paddle) {
 	if (paddle->rect.x < 0) paddle->rect.x = paddleLeftLimit;
 }
 
-std::pair<bool, bool> brickCollisions(std::vector<std::vector<std::shared_ptr<Brick>>>& gridOfBricks, std::shared_ptr<Rectangle> ball) {
-
-	std::pair<bool, bool> hitDetection;
+bool brickCollisions(std::vector<std::vector<std::shared_ptr<Brick>>>& gridOfBricks, std::shared_ptr<Rectangle> ball) {
 
 
 	for (int i = 0; i < gridOfBricks.size(); i++) {
 
-		for (auto it = gridOfBricks[i].begin(); it != gridOfBricks[i].end(); ++it) { // Explain this to the teacher
+		for (auto it = gridOfBricks[i].begin(); it != gridOfBricks[i].end(); ++it) { 
 
-			float ballXCenter = ball->rect.x + (ball->rect.w / 2);
-			float ballYCenter = ball->rect.y + (ball->rect.h / 2);
-
-			float brickXCenter = (*it)->rect.x + ((*it)->rect.w / 2);
-			float brickYCenter = (*it)->rect.y + ((*it)->rect.h / 2);
-
-			float overlapX = ballXCenter - brickXCenter;
-			float overlapY = ballYCenter - brickYCenter;
-
-			if (SDL_HasRectIntersectionFloat(&(*it)->rect, &ball->rect)){
-				gridOfBricks[i].erase(it);
-				if (overlapX > overlapY) {
-					hitDetection.first = true;
-					hitDetection.second = false;
-					return hitDetection;
-				}
-
-				else {
-					hitDetection.first = false;
-					hitDetection.second = true;
-					return hitDetection;
-				}
+			if (SDL_HasRectIntersectionFloat(&(*it)->rect, &ball->rect)) {
+			gridOfBricks[i].erase(it);
+			return true;
 			}
 		}
 	}
-	hitDetection.first = false;
-	hitDetection.second = false;
 
-	return hitDetection;
+	return false;
 }
 
 float deltaTime(Uint64& lastTick) {
