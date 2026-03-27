@@ -1,7 +1,24 @@
 #include "ball.hpp"
 #include "manager.hpp"
 
+
+float timer = Ball::ballSpawnTimer;
+
 void Ball::UpdateBallPhysics(std::shared_ptr<Rectangle> lPaddle, std::shared_ptr<Rectangle> mPaddle, std::shared_ptr<Rectangle> rPaddle, float dt) {
+
+
+	if (this->rect.y > height + 100) {
+
+		timer -= dt;
+
+		if (timer < 0) {
+			this->rect.x = 640;
+			this->rect.y = 640;
+			ballYSpeed = -abs(ballYSpeed);
+			timer = 3.0f; // Fuck this shit bro
+		}
+	}
+
 	this->rect.x += ballXSpeed * dt;
 	this->rect.y += ballYSpeed * dt;
 	this->CheckCollisions(lPaddle, mPaddle, rPaddle);
@@ -15,15 +32,15 @@ void Ball::CheckCollisions(std::shared_ptr<Rectangle> lPaddle, std::shared_ptr<R
 		this->rect.y = height - ((height - lPaddle->rect.y) + ballSize);
 	}
 
-	if (SDL_HasRectIntersectionFloat(&this->rect, &mPaddle->rect)) {
+	else if (SDL_HasRectIntersectionFloat(&this->rect, &mPaddle->rect)) {
 		ballXSpeed = 0.0f;
-		ballYSpeed = -abs(ballYSpeed); // Fix this ball goes slow
+		ballYSpeed = -ballXConstSpeed - 155; // Yeah magic number but very much needed
 		this->rect.y = height - ((height - lPaddle->rect.y) + ballSize);
 	}
 
-	if (SDL_HasRectIntersectionFloat(&this->rect, &rPaddle->rect)) {
+	else if (SDL_HasRectIntersectionFloat(&this->rect, &rPaddle->rect)) {
 		ballXSpeed = abs(ballXConstSpeed);
-		ballYSpeed = -abs(ballYSpeed); 
+		ballYSpeed = -abs(ballYSpeed); // This might seem stupid but, if the ballYSpeed is already negative, negating it won't do shit, this way we ensure the value remains negative
 		this->rect.y = height - ((height - lPaddle->rect.y) + ballSize);
 	}
 
