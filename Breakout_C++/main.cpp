@@ -45,7 +45,7 @@ int main(int arg, char* argv[]) {
 		ball->UpdateBallPhysics(dt, paddle);
 		paddleMovement(paddle, dt);
 		paddleBorderCollisions(paddle);
-		brickCollisions(gridOfBricks, ball);
+		if (brickCollisions(gridOfBricks, ball)) ball->ballYSpeed = -ball->ballYSpeed;
 
 		render(state, paddle, ball, gridOfBricks);
 
