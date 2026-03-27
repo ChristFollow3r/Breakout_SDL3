@@ -18,12 +18,55 @@ void initialize(SDLState& state){
 	}
 }
 
-void render(SDLState& state, std::shared_ptr<Rectangle> paddle, std::shared_ptr<Rectangle> ball) {
+void render(SDLState& state, std::shared_ptr<Rectangle> paddle, std::shared_ptr<Rectangle> ball, std::vector<std::vector<std::shared_ptr<Brick>>> gridOfBricks) {
 	SDL_SetRenderDrawColor(state.renderer, 255, 255, 255, 255);
 	SDL_RenderClear(state.renderer);
 	ball->draw(state, ball->rect, ball->color);
 	paddle->draw(state, paddle->rect, paddle->color);
+
+	for (int i = 0; i < gridOfBricks.size(); i++) {
+		for (auto x : gridOfBricks[i]) x->draw(state, x->rect, x->color);
+	}
+
 	SDL_RenderPresent(state.renderer);
+}
+
+std::vector<std::vector<std::shared_ptr<Brick>>> createBricks(SDLState& state) {
+
+	std::vector<std::vector<std::shared_ptr<Brick>>> gridOfBricks;
+
+	float xStarterPosition = 70;
+
+	float xUpdatedPosition = 70;
+	float yUpdatedPosition = 40;
+
+	int brickWidth = 72;
+	int brickHeight = 30;
+
+	float xOffset = 10;
+	float yOffset = 5;
+
+	SDL_Color brickColor = { 126, 67, 12, 255 };
+
+	for (int i = 0; i < 12; i++)
+	{
+		std::vector<std::shared_ptr<Brick>> temp;
+
+		for (int j = 0; j < 14; j++)
+		{
+			SDL_FRect brickRect = { xUpdatedPosition, yUpdatedPosition, brickWidth, brickHeight };
+			auto brick = std::make_shared<Brick>(brickRect, state.renderer, brickColor);
+
+			xUpdatedPosition = xUpdatedPosition + brickWidth + xOffset;
+			temp.push_back(brick);
+		}
+
+		gridOfBricks.push_back(temp);
+		xUpdatedPosition = xStarterPosition;
+		yUpdatedPosition = yUpdatedPosition + brickHeight + yOffset;
+	}
+
+	return gridOfBricks;
 }
 
 void paddleMovement(std::shared_ptr<Rectangle> paddle, float dt) {

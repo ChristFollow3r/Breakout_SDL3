@@ -13,7 +13,6 @@ void Ball::CheckCollisions(std::shared_ptr<Rectangle> paddle) {
 		this->rect.y = height - ((height - paddle->rect.y) + ballSize);
 	}
 
-
 	if (this->rect.y <= 0) {
 		ballYSpeed = -ballYSpeed;
 		this->rect.y = 0;

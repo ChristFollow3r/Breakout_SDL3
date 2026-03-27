@@ -14,12 +14,14 @@ int main(int arg, char* argv[]) {
 
 	Uint64 lastTick = SDL_GetTicks();
 	deltaTime(lastTick);
+
+	std::vector<std::vector<std::shared_ptr<Brick>>> gridOfBricks = createBricks(state);
 	
 	SDL_Color paddleColor = { 255, 0, 0, 255 }; 
 	SDL_FRect rect = { 640, 640, paddleLength, 10 };
 	auto paddle = std::make_shared<Rectangle>(rect, state.renderer, paddleColor); // Not worth making a function just to create a pointer
 
-	SDL_Color ballColor = { 30, 144, 255, 255 };
+	SDL_Color ballColor = { 0, 0, 0, 255 };
 	rect = { 520, 30, Ball::ballSize , Ball::ballSize };
 	auto ball = std::make_shared<Ball>(rect, state.renderer, ballColor);
 
@@ -37,13 +39,14 @@ int main(int arg, char* argv[]) {
 			}
 		}
 
+		createBricks(state);
 		float dt = deltaTime(lastTick);
 
 		ball->UpdateBallPhysics(dt, paddle);
 		paddleMovement(paddle, dt);
 		paddleBorderCollisions(paddle);
 
-		render(state, paddle, ball);
+		render(state, paddle, ball, gridOfBricks);
 
 	}
 

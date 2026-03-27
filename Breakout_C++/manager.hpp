@@ -1,8 +1,10 @@
 #pragma once
 #include <SDL3/SDL.h>
 #include <iostream>
+#include <vector>
 #include <memory>
 #include "rectangle.hpp"
+#include "brick.hpp"
 
 const int width = 1280;
 const int height = 720;
@@ -17,7 +19,9 @@ struct SDLState {
 };
 
 void initialize(SDLState& state);
-void render(SDLState& state, std::shared_ptr<Rectangle> paddle, std::shared_ptr<Rectangle> ball);
+void render(SDLState& state, std::shared_ptr<Rectangle> paddle, std::shared_ptr<Rectangle> ball, std::vector<std::vector<std::shared_ptr<Brick>>> gridOfBricks);
+
+std::vector<std::vector<std::shared_ptr<Brick>>> createBricks(SDLState& state);
 
 void paddleMovement(std::shared_ptr<Rectangle> paddle, float dt);
 void paddleBorderCollisions(std::shared_ptr<Rectangle> paddle);

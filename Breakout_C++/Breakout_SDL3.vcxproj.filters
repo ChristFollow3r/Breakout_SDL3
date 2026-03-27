@@ -44,5 +44,8 @@
     <ClInclude Include="ball.hpp">
       <Filter>Archivos de encabezado\Class_Declaration</Filter>
     </ClInclude>
+    <ClInclude Include="brick.hpp">
+      <Filter>Archivos de encabezado\Class_Declaration</Filter>
+    </ClInclude>
   </ItemGroup>
 </Project>
