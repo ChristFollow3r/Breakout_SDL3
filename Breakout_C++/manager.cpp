@@ -46,7 +46,7 @@ std::vector<std::vector<std::shared_ptr<Brick>>> createBricks(SDLState& state) {
 	float xOffset = 10;
 	float yOffset = 5;
 
-	SDL_Color brickColor = { 126, 67, 12, 255 };
+	SDL_Color brickColor = { 60, 125, 68, 255 };
 
 	for (int i = 0; i < 12; i++)
 	{
