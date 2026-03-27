@@ -20,7 +20,7 @@ int main(int arg, char* argv[]) {
 	auto paddle = std::make_shared<Rectangle>(rect, state.renderer, paddleColor); // Not worth making a function just to create a pointer
 
 	SDL_Color ballColor = { 30, 144, 255, 255 };
-	rect = { 520, 30, 10, 10 };
+	rect = { 520, 30, Ball::ballSize , Ball::ballSize };
 	auto ball = std::make_shared<Ball>(rect, state.renderer, ballColor);
 
 	while (running) {
