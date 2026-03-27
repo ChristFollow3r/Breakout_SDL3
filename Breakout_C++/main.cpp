@@ -52,10 +52,10 @@ int main(int arg, char* argv[]) {
 		
 		waitTimer += dt;
 
-		if (waitTimer > 5.0f) ball->UpdateBallPhysics(dt, lPaddle);
-
 		paddleMovement(lPaddle, mPaddle, rPaddle, dt);
 		paddleBorderCollisions(lPaddle, mPaddle, rPaddle);
+
+		if (waitTimer > 5.0f) ball->UpdateBallPhysics(lPaddle, mPaddle, rPaddle, dt);
 		if (brickCollisions(gridOfBricks, ball)) ball->ballYSpeed = -ball->ballYSpeed; // I made a bouncing on the sides version of this function but it was too unreliable so I scrapped it
 
 		render(state, lPaddle, mPaddle, rPaddle, ball, gridOfBricks);
