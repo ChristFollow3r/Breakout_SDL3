@@ -24,7 +24,7 @@ void render(SDLState& state, std::shared_ptr<Rectangle> lPaddle, std::shared_ptr
 std::vector<std::vector<std::shared_ptr<Brick>>> createBricks(SDLState& state);
 
 void paddleMovement(std::shared_ptr<Rectangle> lPaddle, std::shared_ptr<Rectangle> mPaddle, std::shared_ptr<Rectangle> rPaddle, float dt);
-void paddleBorderCollisions(std::shared_ptr<Rectangle> paddle);
+void paddleBorderCollisions(std::shared_ptr<Rectangle> lPaddle, std::shared_ptr<Rectangle> mPaddle, std::shared_ptr<Rectangle> rPaddle);
 bool brickCollisions(std::vector<std::vector<std::shared_ptr<Brick>>>& gridOfBricks, std::shared_ptr<Rectangle> ball);
 
 float deltaTime(Uint64& lastTick);

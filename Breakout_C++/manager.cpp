@@ -85,9 +85,18 @@ void paddleMovement(std::shared_ptr<Rectangle> lPaddle, std::shared_ptr<Rectangl
 	}
 }
 
-void paddleBorderCollisions(std::shared_ptr<Rectangle> paddle) {
-	if (paddle->rect.x + paddleLength >= width) paddle->rect.x = paddleRightLimit;
-	if (paddle->rect.x < 0) paddle->rect.x = paddleLeftLimit;
+void paddleBorderCollisions(std::shared_ptr<Rectangle> lPaddle, std::shared_ptr<Rectangle> mPaddle, std::shared_ptr<Rectangle> rPaddle) {
+	if (rPaddle->rect.x + paddleLength >= width) {
+		rPaddle->rect.x = paddleRightLimit;
+		mPaddle->rect.x = paddleRightLimit - mPaddle->rect.w;
+		lPaddle->rect.x = paddleRightLimit - (2 * rPaddle->rect.w);
+	}
+
+	if (lPaddle->rect.x < 0) {
+		lPaddle->rect.x = paddleLeftLimit;
+		mPaddle->rect.x = paddleLeftLimit + mPaddle->rect.w;
+		rPaddle->rect.x = paddleLeftLimit + (2 * mPaddle->rect.w);
+	}
 }
 
 bool brickCollisions(std::vector<std::vector<std::shared_ptr<Brick>>>& gridOfBricks, std::shared_ptr<Rectangle> ball) {
