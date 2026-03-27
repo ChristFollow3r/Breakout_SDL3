@@ -8,8 +8,8 @@ const int width = 1280;
 const int height = 720;
 const float paddleSpeed = 500.0f;
 const int paddleLength = 100;
-const int rightLimit = width - paddleLength;
-const int leftLimit = 0;
+const int paddleRightLimit = width - paddleLength;
+const int paddleLeftLimit = 0;
 
 struct SDLState {
 	SDL_Window* window;

@@ -33,8 +33,8 @@ void paddleMovement(std::shared_ptr<Rectangle> paddle, float dt) {
 }
 
 void paddleBorderCollisions(std::shared_ptr<Rectangle> paddle) {
-	if (paddle->rect.x + paddleLength >= width) paddle->rect.x = rightLimit;
-	if (paddle->rect.x < 0) paddle->rect.x = leftLimit;
+	if (paddle->rect.x + paddleLength >= width) paddle->rect.x = paddleRightLimit;
+	if (paddle->rect.x < 0) paddle->rect.x = paddleLeftLimit;
 }
 
 float deltaTime(Uint64& lastTick) {
