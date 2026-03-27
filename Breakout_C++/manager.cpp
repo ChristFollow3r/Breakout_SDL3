@@ -80,6 +80,20 @@ void paddleBorderCollisions(std::shared_ptr<Rectangle> paddle) {
 	if (paddle->rect.x < 0) paddle->rect.x = paddleLeftLimit;
 }
 
+void brickCollisions(std::vector<std::vector<std::shared_ptr<Brick>>>& gridOfBricks, std::shared_ptr<Rectangle> ball) {
+
+	for (int i = 0; i < gridOfBricks.size(); i++) {
+
+		for (auto it = gridOfBricks[i].begin(); it != gridOfBricks[i].end(); ++it) {
+			if (SDL_HasRectIntersectionFloat(&(*it)->rect, &ball->rect)) {
+				gridOfBricks[i].erase(it);
+				return;	
+			}
+		}
+	}
+
+}
+
 float deltaTime(Uint64& lastTick) {
 	Uint64 currentTick = SDL_GetTicks();
 	Uint64 elapedTick = currentTick - lastTick;
