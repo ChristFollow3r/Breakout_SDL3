@@ -22,8 +22,9 @@ int main(int arg, char* argv[]) {
 	auto paddle = std::make_shared<Rectangle>(rect, state.renderer, paddleColor); // Not worth making a function just to create a pointer
 
 	SDL_Color ballColor = { 0, 0, 0, 255 };
-	rect = { 520, 30, Ball::ballSize , Ball::ballSize };
+	rect = { 720, 550, Ball::ballSize , Ball::ballSize };
 	auto ball = std::make_shared<Ball>(rect, state.renderer, ballColor);
+	ball->ballYSpeed = -ball->ballYSpeed;
 
 	while (running) {
 
@@ -45,8 +46,11 @@ int main(int arg, char* argv[]) {
 		ball->UpdateBallPhysics(dt, paddle);
 		paddleMovement(paddle, dt);
 		paddleBorderCollisions(paddle);
-		if (brickCollisions(gridOfBricks, ball)) ball->ballYSpeed = -ball->ballYSpeed;
+		auto brickHit = brickCollisions(gridOfBricks, ball);
 
+		if (brickHit.first) ball-> ballXSpeed = -ball->ballXSpeed;
+		else if (brickHit.second) ball->ballYSpeed = -ball->ballYSpeed;
+		
 		render(state, paddle, ball, gridOfBricks);
 
 	}

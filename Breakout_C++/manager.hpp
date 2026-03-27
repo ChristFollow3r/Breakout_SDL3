@@ -8,7 +8,7 @@
 
 const int width = 1280;
 const int height = 720;
-const float paddleSpeed = 500.0f;
+const float paddleSpeed = 600.0f;
 const int paddleLength = 100;
 const int paddleRightLimit = width - paddleLength;
 const int paddleLeftLimit = 0;
@@ -25,7 +25,7 @@ std::vector<std::vector<std::shared_ptr<Brick>>> createBricks(SDLState& state);
 
 void paddleMovement(std::shared_ptr<Rectangle> paddle, float dt);
 void paddleBorderCollisions(std::shared_ptr<Rectangle> paddle);
-bool brickCollisions(std::vector<std::vector<std::shared_ptr<Brick>>>& gridOfBricks, std::shared_ptr<Rectangle> ball);
+std::pair<bool, bool> brickCollisions(std::vector<std::vector<std::shared_ptr<Brick>>>& gridOfBricks, std::shared_ptr<Rectangle> ball);
 
 float deltaTime(Uint64& lastTick);
 void cleanUp(SDLState& state);
