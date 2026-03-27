@@ -19,7 +19,12 @@ int main(int arg, char* argv[]) {
 	
 	SDL_Color paddleColor = { 255, 0, 0, 255 }; 
 	SDL_FRect rect = { 640, 640, paddleLength, 10 };
-	auto paddle = std::make_shared<Rectangle>(rect, state.renderer, paddleColor); // Not worth making a function just to create a pointer
+	auto lPaddle = std::make_shared<Rectangle>(rect, state.renderer, paddleColor); // Not worth making a function just to create a pointer
+	rect.x += paddleLength;
+	auto mPaddle = std::make_shared<Rectangle>(rect, state.renderer, paddleColor);
+	rect.x += paddleLength;
+	auto rPaddle = std::make_shared<Rectangle>(rect, state.renderer, paddleColor);
+
 
 	SDL_Color ballColor = { 0, 0, 0, 255 };
 	rect = { 720, 550, Ball::ballSize , Ball::ballSize };
@@ -47,13 +52,13 @@ int main(int arg, char* argv[]) {
 		
 		waitTimer += dt;
 
-		if (waitTimer > 5.0f) ball->UpdateBallPhysics(dt, paddle);
+		if (waitTimer > 5.0f) ball->UpdateBallPhysics(dt, lPaddle);
 
-		paddleMovement(paddle, dt);
-		paddleBorderCollisions(paddle);
+		paddleMovement(lPaddle, mPaddle, rPaddle, dt);
+		paddleBorderCollisions(lPaddle);
 		if (brickCollisions(gridOfBricks, ball)) ball->ballYSpeed = -ball->ballYSpeed; // I made a bouncing on the sides version of this function but it was too unreliable so I scrapped it
 
-		render(state, paddle, ball, gridOfBricks);
+		render(state, lPaddle, mPaddle, rPaddle, ball, gridOfBricks);
 
 	}
 

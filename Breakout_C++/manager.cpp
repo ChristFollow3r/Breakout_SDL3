@@ -18,11 +18,13 @@ void initialize(SDLState& state){
 	}
 }
 
-void render(SDLState& state, std::shared_ptr<Rectangle> paddle, std::shared_ptr<Rectangle> ball, std::vector<std::vector<std::shared_ptr<Brick>>> gridOfBricks) {
+void render(SDLState& state, std::shared_ptr<Rectangle> lPaddle, std::shared_ptr<Rectangle> mPaddle, std::shared_ptr<Rectangle> rPaddle, std::shared_ptr<Rectangle> ball, std::vector<std::vector<std::shared_ptr<Brick>>> gridOfBricks) {
 	SDL_SetRenderDrawColor(state.renderer, 255, 255, 255, 255);
 	SDL_RenderClear(state.renderer);
 	ball->draw(state, ball->rect, ball->color);
-	paddle->draw(state, paddle->rect, paddle->color);
+	lPaddle->draw(state, lPaddle->rect, lPaddle->color);
+	mPaddle->draw(state, mPaddle->rect, mPaddle->color);
+	rPaddle->draw(state, rPaddle->rect, rPaddle->color);
 
 	for (int i = 0; i < gridOfBricks.size(); i++) {
 		for (auto x : gridOfBricks[i]) x->draw(state, x->rect, x->color);
@@ -69,10 +71,18 @@ std::vector<std::vector<std::shared_ptr<Brick>>> createBricks(SDLState& state) {
 	return gridOfBricks;
 }
 
-void paddleMovement(std::shared_ptr<Rectangle> paddle, float dt) {
+void paddleMovement(std::shared_ptr<Rectangle> lPaddle, std::shared_ptr<Rectangle> mPaddle, std::shared_ptr<Rectangle> rPaddle, float dt) {
 	const bool* keys = SDL_GetKeyboardState(nullptr);
-	if (keys[SDL_SCANCODE_A]) paddle->rect.x -= (paddleSpeed * dt);
-	if (keys[SDL_SCANCODE_D]) paddle->rect.x += (paddleSpeed * dt);
+	if (keys[SDL_SCANCODE_A]) {
+		lPaddle->rect.x -= (paddleSpeed * dt);
+		mPaddle->rect.x -= (paddleSpeed * dt);
+		rPaddle->rect.x -= (paddleSpeed * dt);
+	}
+	if (keys[SDL_SCANCODE_D]) {
+		lPaddle->rect.x += (paddleSpeed * dt);
+		mPaddle->rect.x += (paddleSpeed * dt);
+		rPaddle->rect.x += (paddleSpeed * dt);
+	}
 }
 
 void paddleBorderCollisions(std::shared_ptr<Rectangle> paddle) {
