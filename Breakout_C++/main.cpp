@@ -2,6 +2,7 @@
 #include <iostream>
 #include <memory>
 #include "manager.hpp"
+#include "gameplay.hpp"
 #include "rectangle.hpp"
 #include "ball.hpp"
 
@@ -33,8 +34,6 @@ int main(int arg, char* argv[]) {
 	rect = { 720, 550, Ball::ballSize , Ball::ballSize };
 	auto ball = std::make_shared<Ball>(rect, state.renderer, ballColor);
 	ball->ballYSpeed = -ball->ballYSpeed;
-	
-	float waitTimer = 0.0f;
 
 	createBricks(state);	
 
@@ -53,15 +52,7 @@ int main(int arg, char* argv[]) {
 			}
 		}
 		
-		waitTimer += dt;
-
-		paddleMovement(lPaddle, mPaddle, rPaddle, dt);
-		paddleBorderCollisions(lPaddle, mPaddle, rPaddle);
-
-		if (waitTimer > 1.0f) ball->UpdateBallPhysics(lPaddle, mPaddle, rPaddle, dt);
-		if (brickCollisions(gridOfBricks, ball)) ball->ballYSpeed = -ball->ballYSpeed; // I made a bouncing on the sides version of this function but it was too unreliable so I scrapped it
-
-		render(state, lPaddle, mPaddle, rPaddle, ball, gridOfBricks);
+		breakoutGameplay(state, gridOfBricks, lPaddle, mPaddle, rPaddle, ball, dt);
 
 	}
 

@@ -1,3 +1,4 @@
+#pragma once
 #include "rectangle.hpp"
 
 class Brick : public Rectangle {
