@@ -17,6 +17,8 @@ int main(int arg, char* argv[]) {
 	Uint64 lastTick = SDL_GetTicks();
 	deltaTime(lastTick);
 
+	// Brick creation
+
 	std::vector<std::vector<std::shared_ptr<Brick>>> gridOfBricks = createBricks(state);
 	
 	// This is the paddle
@@ -36,7 +38,11 @@ int main(int arg, char* argv[]) {
 	auto ball = std::make_shared<Ball>(rect, state.renderer, ballColor);
 	ball->ballYSpeed = -ball->ballYSpeed;
 
-	createBricks(state);	
+	TTF_Init();
+	TTF_Font* font = TTF_OpenFont("Emasland_Trial.ttf", 24); // Why the fuck do they want pointers all the time why can't they just grab a reference.
+	if (!font) {
+		SDL_ShowSimpleMessageBox(SDL_MESSAGEBOX_ERROR, "Error", "Couldn't load the font", state.window);
+	}
 
 	while (running) {
 
