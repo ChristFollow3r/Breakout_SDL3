@@ -3,7 +3,7 @@
 I'm doing this alone cause I cannot force anyone on the class to use SDL.
 
 > The only thing new with pure SDL3 that I used in this program was: SDL_HasRectIntersectionFloat. I already did a collision system for my powder toy clone, but I was using a grid there, so the collision was pretty straight forward,
-probably the same thing those who are using the console for this do. You can check out the code of my powder toy clone its an open repo in my github. I thought in my case made much more sense to use this function to check for collisions
+probably the same thing those who are using the console for the breakout use. You can check out the code of my powder toy clone its an open repo in my github. I thought in my case made much more sense to use this function to check for collisions
 than a using a grid.
 
 > Also I yipidi yapidy my code was always my property from my powder toy clone game the delta time function and the rendering stuff. Just that the rendering stuff has been tweaked to suit the necessities of this programm (it's not a stragith
