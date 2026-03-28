@@ -39,10 +39,15 @@ int main(int arg, char* argv[]) {
 	ball->ballYSpeed = -ball->ballYSpeed;
 
 	TTF_Init();
-	TTF_Font* font = TTF_OpenFont("Emasland_Trial.ttf", 24); // Why the fuck do they want pointers all the time why can't they just grab a reference.
+	TTF_Font* font = TTF_OpenFont("Emasland_Trial.ttf", 24); // https://wiki.libsdl.org/SDL3_ttf/QuickReference
 	if (!font) {
 		SDL_ShowSimpleMessageBox(SDL_MESSAGEBOX_ERROR, "Error", "Couldn't load the font", state.window);
 	}
+
+	SDL_Surface* surface = TTF_RenderText_Solid(font, "BREAKOUT", 0, {255, 255, 255, 255});
+	SDL_Texture* texture = SDL_CreateTextureFromSurface(state.renderer, surface);
+	SDL_DestroySurface(surface);
+	SDL_FRect textRect = { 550, 310, 200, 50 };
 
 	while (running) {
 
@@ -59,6 +64,10 @@ int main(int arg, char* argv[]) {
 			}
 		}
 		
+		//SDL_SetRenderDrawColor(state.renderer, 0, 0, 0, 255);
+		//SDL_RenderClear(state.renderer);
+		//SDL_RenderTexture(state.renderer, texture, nullptr, &textRect);
+		//SDL_RenderPresent(state.renderer);
 		breakoutGameplay(state, gridOfBricks, lPaddle, mPaddle, rPaddle, ball, dt);
 
 	}
