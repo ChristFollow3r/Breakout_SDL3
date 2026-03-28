@@ -17,6 +17,8 @@ AI if that function did indeed what I thought it does. I'm writing this on the 2
 
 > I write this cause I feel this parts requires a proper explanation since I never touched it, so I don't get flaged with stolen code or AI generated code (even though this is essentially the same as the std::cout that comes with the iostream library, so it shouldn't be a problem).
 
+> I also used AI every single time I had circular libraries issues (so far about 3 times). 
+
 <b>If you have any question feel free to ask.<b>
 
 > PD: I was going to do the breakout with Pau, but dude wanted to use a kind of engine he made and theres no way I was going to learn to use his "engine". Also dude waits until the last day to do this kind of stuff and I want this
