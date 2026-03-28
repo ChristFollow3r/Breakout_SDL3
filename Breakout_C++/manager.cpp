@@ -71,6 +71,31 @@ std::vector<std::vector<std::shared_ptr<Brick>>> createBricks(SDLState& state) {
 	return gridOfBricks;
 }
 
+float deltaTime(Uint64& lastTick) {
+	Uint64 currentTick = SDL_GetTicks();
+	Uint64 elapedTick = currentTick - lastTick;
+	lastTick = currentTick;
+
+	return static_cast<float>(elapedTick / 1000.0f);
+}
+
+bool loadingScreen(SDLState state, float dt, TTF_Font* font, SDL_Texture* texture, SDL_FRect textRect) {
+
+	if (!font) SDL_ShowSimpleMessageBox(SDL_MESSAGEBOX_ERROR, "Error", "Couldn't load the font", state.window);
+
+	loadScreenWaitingTime -= dt;
+
+	if (loadScreenWaitingTime > 0) {
+		SDL_SetRenderDrawColor(state.renderer, 0, 0, 0, 255);
+		SDL_RenderClear(state.renderer);
+		SDL_RenderTexture(state.renderer, texture, nullptr, &textRect);
+		SDL_RenderPresent(state.renderer);
+		return true;
+	}
+
+	else return false;
+}
+
 void paddleMovement(std::shared_ptr<Rectangle> lPaddle, std::shared_ptr<Rectangle> mPaddle, std::shared_ptr<Rectangle> rPaddle, float dt) {
 	const bool* keys = SDL_GetKeyboardState(nullptr);
 	if (keys[SDL_SCANCODE_A]) {
@@ -106,7 +131,7 @@ bool brickCollisions(std::vector<std::vector<std::shared_ptr<Brick>>>& gridOfBri
 
 		for (auto it = gridOfBricks[i].begin(); it != gridOfBricks[i].end(); ++it) { 
 
-			if (SDL_HasRectIntersectionFloat(&(*it)->rect, &ball->rect)) {
+			if (SDL_HasRectIntersectionFloat(&(*it)->rect, &ball->rect)) { // I asked I how to dereference it cause static_cast to int doesn't work.
 			gridOfBricks[i].erase(it);
 			return true;
 			}
@@ -114,14 +139,6 @@ bool brickCollisions(std::vector<std::vector<std::shared_ptr<Brick>>>& gridOfBri
 	}
 
 	return false;
-}
-
-float deltaTime(Uint64& lastTick) {
-	Uint64 currentTick = SDL_GetTicks();
-	Uint64 elapedTick = currentTick - lastTick;
-	lastTick = currentTick;
-
-	return static_cast<float>(elapedTick / 1000.0f);
 }
 
 void cleanUp(SDLState& state) {
