@@ -39,7 +39,7 @@ int main(int arg, char* argv[]) {
 	ball->ballYSpeed = -ball->ballYSpeed;
 
 	TTF_Init();
-	TTF_Font* font = TTF_OpenFont("Emasland_Trial.ttf", 24); // https://wiki.libsdl.org/SDL3_ttf/QuickReference
+	TTF_Font* font = TTF_OpenFont("Emasland_Trial.ttf", 142); // https://wiki.libsdl.org/SDL3_ttf/QuickReference
 	if (!font) {
 		SDL_ShowSimpleMessageBox(SDL_MESSAGEBOX_ERROR, "Error", "Couldn't load the font", state.window);
 	}
@@ -47,7 +47,11 @@ int main(int arg, char* argv[]) {
 	SDL_Surface* surface = TTF_RenderText_Solid(font, "BREAKOUT", 0, {255, 255, 255, 255});
 	SDL_Texture* texture = SDL_CreateTextureFromSurface(state.renderer, surface);
 	SDL_DestroySurface(surface);
-	SDL_FRect textRect = { 550, 310, 200, 50 };
+
+	float textWidht, textHeight;
+	SDL_GetTextureSize(texture, &textWidht, &textHeight);
+
+	SDL_FRect textRect = { (width - textWidht) / 2, (height - textHeight) / 2, textWidht, textHeight}; // AI gave me the x and y formula I was hardcoding the values
 
 	while (running) {
 
@@ -64,11 +68,11 @@ int main(int arg, char* argv[]) {
 			}
 		}
 		
-		//SDL_SetRenderDrawColor(state.renderer, 0, 0, 0, 255);
-		//SDL_RenderClear(state.renderer);
-		//SDL_RenderTexture(state.renderer, texture, nullptr, &textRect);
-		//SDL_RenderPresent(state.renderer);
-		breakoutGameplay(state, gridOfBricks, lPaddle, mPaddle, rPaddle, ball, dt);
+		SDL_SetRenderDrawColor(state.renderer, 0, 0, 0, 255);
+		SDL_RenderClear(state.renderer);
+		SDL_RenderTexture(state.renderer, texture, nullptr, &textRect);
+		SDL_RenderPresent(state.renderer);
+		//breakoutGameplay(state, gridOfBricks, lPaddle, mPaddle, rPaddle, ball, dt);
 
 	}
 
