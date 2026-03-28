@@ -16,7 +16,7 @@ foccus on having the basics done.
 > I also looked for functinos that might suit my purposes on this md: https://wiki.libsdl.org/SDL3_ttf/QuickReference  though im pretty bad at reading documentation so once I found a function that might do what I want I would just ask
 AI if that function did indeed what I thought it does. I'm writing this on the 28/03/2026, maybe I get better at reading documentation along the way.
 
-> I write this cause I feel this parts requires a proper explanation since I touched it, so I don't get flaged with stolen code or AI generated code (even though this is like the std::cout that comes with the iostream library
+> I write this cause I feel this parts requires a proper explanation since I never touched it, so I don't get flaged with stolen code or AI generated code (even though this is like the std::cout that comes with the iostream library
 so it shouldn't be a problem).
 
 <b>If you have any other question feel free to ask me.<b>
