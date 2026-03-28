@@ -12,8 +12,8 @@ copy paste, that wouldn't work).
 > About the libraries, SDL3 was already on my working enviroment (It was set up before starting with this), and I asked AI how to install the ttf library (It was only a comand on the cmd). Maybe I add sound to the game, but as for now i'll
 foccus on having the basics done.
 
-> About SDL_ttf I had no clue about the library, I've been asking AI for function explanations and watched tutorials on youtube: https://www.youtube.com/watch?v=sZePzgwJtj0&t=197s || 
-I also looked for functinos that might suit my purposes on this md: https://wiki.libsdl.org/SDL3_ttf/QuickReference  though im pretty bad at reading documentation so once I found a function that might do what I want I would just ask
+> About SDL_ttf I had no clue about the library, I've been asking AI for function explanations and watched tutorials on youtube: https://www.youtube.com/watch?v=sZePzgwJtj0&t=197s || https://www.youtube.com/watch?v=9AoEQOzi7aM
+> I also looked for functinos that might suit my purposes on this md: https://wiki.libsdl.org/SDL3_ttf/QuickReference  though im pretty bad at reading documentation so once I found a function that might do what I want I would just ask
 AI if that function did indeed what I thought it does. I'm writing this on the 28/03/2026, maybe I get better at reading documentation along the way.
 
 > I write this cause I feel this parts requires a proper explanation since I touched it, so I don't get flaged with stolen code or AI generated code (even though this is like the std::cout that comes with the iostream library
