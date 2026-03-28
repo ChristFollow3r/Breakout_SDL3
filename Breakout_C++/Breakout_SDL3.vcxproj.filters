@@ -36,6 +36,9 @@
     <ClCompile Include="gameplay.cpp">
       <Filter>Archivos de origen</Filter>
     </ClCompile>
+    <ClCompile Include="button.cpp">
+      <Filter>Archivos de origen\Class_Definition</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="manager.hpp">
@@ -52,6 +55,9 @@
     </ClInclude>
     <ClInclude Include="gameplay.hpp">
       <Filter>Archivos de encabezado</Filter>
+    </ClInclude>
+    <ClInclude Include="button.hpp">
+      <Filter>Archivos de encabezado\Class_Declaration</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>
