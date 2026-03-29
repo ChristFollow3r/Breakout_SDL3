@@ -59,10 +59,12 @@ int main(int arg, char* argv[]) {
 	TTF_SetFontSize(font, 24);
 	int buttonWidth = 200;
 	int buttonHeight = 100;
+	int gap = 20;
 
-	auto playButton = createButton(font, state, "Play", (width / 2) - buttonWidth, (height / 2) - buttonHeight);
-
-	playButton->Hovered();
+	auto playButton = createButton(font, state, "Play", (width - buttonWidth) / 2, buttonHeight);
+	auto rankingButton = createButton(font, state, "Ranking", (width - buttonWidth) / 2, (buttonHeight * 2) + gap);
+	auto creditsButton = createButton(font, state, "Credits", (width - buttonWidth) / 2, (buttonHeight * 3) + gap * 2);
+	auto exitButton = createButton(font, state, "Exit", (width - buttonWidth) / 2, (buttonHeight * 4) + gap * 3);
 	// ***********************************************************************************************************************************************************
 
 	bool buttonClicked = false;
@@ -88,7 +90,13 @@ int main(int arg, char* argv[]) {
 			}
 		}
 
+		SDL_SetRenderDrawColor(state.renderer, 0, 0, 0, 255);
+		SDL_RenderClear(state.renderer);
 		drawButton(state, playButton.get());
+		drawButton(state, rankingButton.get());
+		drawButton(state, creditsButton.get());
+		drawButton(state, exitButton.get());
+		SDL_RenderPresent(state.renderer);
 		continue;
 
 		//if (loadingScreen(state, dt, font, texture, textRect)) continue;
