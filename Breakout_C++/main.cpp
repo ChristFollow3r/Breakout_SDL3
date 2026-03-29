@@ -10,11 +10,12 @@
 #include "ball.hpp"
 
 int main(int arg, char* argv[]) {
-	
+
 	SDLState state;
 	initialize(state);
 
 	bool running = true;
+	int lifes = 3;
 
 	Uint64 lastTick = SDL_GetTicks();
 	deltaTime(lastTick);
@@ -22,12 +23,12 @@ int main(int arg, char* argv[]) {
 	// Brick creation
 
 	std::vector<std::vector<std::shared_ptr<Brick>>> gridOfBricks = createBricks(state);
-	
+
 	// This is for the paddle
 
 	SDL_Color paddleColor = { 255, 0, 0, 255 }; // I could use a vector but I don't think it's worth it
 	SDL_FRect rect = { 640, 640, paddleLength, 10 };
-	auto lPaddle = std::make_shared<Rectangle>(rect, state.renderer, paddleColor); 
+	auto lPaddle = std::make_shared<Rectangle>(rect, state.renderer, paddleColor);
 	rect.x += paddleLength;
 	auto mPaddle = std::make_shared<Rectangle>(rect, state.renderer, paddleColor);
 	rect.x += paddleLength;
@@ -38,7 +39,7 @@ int main(int arg, char* argv[]) {
 	SDL_Color ballColor = { 0, 0, 0, 255 };
 	rect = { 720, 550, Ball::ballSize , Ball::ballSize };
 	auto ball = std::make_shared<Ball>(rect, state.renderer, ballColor);
-	ball->ballYSpeed = -ball->ballYSpeed;
+	ball->ballYSpeed = -ball->ballYSpeed; // I have to flip the ball speed so it starts the game going upwards. I could start with a negative value but this is already done
 
 	// This is for the text stuff
 
@@ -55,7 +56,7 @@ int main(int arg, char* argv[]) {
 	SDL_FRect textRect = { (width - textWidht) / 2, (height - textHeight) / 2, textWidht, textHeight };
 	// Loading screen ********************************************************************************************************************************************
 
-	// New Button Test *******************************************************************************************************************************************
+	// Buttons        ********************************************************************************************************************************************
 	TTF_SetFontSize(font, 24);
 	int buttonWidth = 200;
 	int buttonHeight = 100;
@@ -71,23 +72,43 @@ int main(int arg, char* argv[]) {
 
 	while (running) {
 
-		SDL_Event event{0};
+		SDL_Event event{ 0 };
 		float dt = deltaTime(lastTick);
-		
-		buttonClicked = false;
+
+		if (loadingScreen(state, dt, font, texture, textRect)) continue;
+		GameState gameState = menu(state, playButton.get(), rankingButton.get(), exitButton.get());
 
 		while (SDL_PollEvent(&event)) {
+
 			switch (event.type) {
 
 			case SDL_EVENT_QUIT:
 				cleanUp(state);
 				running = false;
 				break;
+
 			case SDL_EVENT_MOUSE_BUTTON_DOWN:
-				buttonClicked = true;
-				//testButton->Clicked(buttonClicked);
-				break;
+
+				if (event.button.button == SDL_BUTTON_LEFT) {
+
+					switch (gameState) {
+
+					case GameState::MENU:
+						// To add
+						break;
+
+					case GameState::GAME:
+						breakoutGameplay(state, gridOfBricks, lPaddle, mPaddle, rPaddle, ball, dt, lifes);
+						break;
+
+					default:
+						break;
+					}
+				}
+
 			}
+
+
 		}
 
 		SDL_SetRenderDrawColor(state.renderer, 0, 0, 0, 255);
@@ -99,8 +120,6 @@ int main(int arg, char* argv[]) {
 		SDL_RenderPresent(state.renderer);
 		continue;
 
-		//if (loadingScreen(state, dt, font, texture, textRect)) continue;
-		breakoutGameplay(state, gridOfBricks, lPaddle, mPaddle, rPaddle, ball, dt);
 
 	}
 

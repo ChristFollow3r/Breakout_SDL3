@@ -13,4 +13,5 @@ void breakoutGameplay(SDLState state,
 	std::shared_ptr<Rectangle> mPaddle,
 	std::shared_ptr<Rectangle> rPaddle,
 	std::shared_ptr<Ball> ball, 
-	float dt);
+	float dt,
+	int& lifes);

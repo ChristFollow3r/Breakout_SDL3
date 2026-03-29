@@ -12,7 +12,7 @@ public:
 	: Rectangle(rect, renderer, color), texture(texture), buttonTextRect(buttonTextRect) {};
 
 	void Hovered();
-	void Clicked(bool clicked);
+	bool Clicked();
 	void AddText(SDL_Renderer* renderer);
 
 };

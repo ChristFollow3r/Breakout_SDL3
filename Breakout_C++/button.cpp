@@ -14,16 +14,12 @@ void Button::Hovered() {
 }
 
 
-void Button::Clicked(bool clicked) {
+bool Button::Clicked() {
 
 	float x, y;
 	SDL_GetMouseState(&x, &y);
 
-	SDL_Color clickedColor = { 255, 240, 120, 255 };
-	SDL_Color regularColor = { 180, 160, 50, 255 };
-
-	if (x >= this->rect.x && x <= this->rect.x + this->rect.w && y >= this->rect.y && y <= this->rect.y + this->rect.h && clicked) this->color = clickedColor;
-	else this->color = regularColor;
+	return (x >= this->rect.x && x <= this->rect.x + this->rect.w && y >= this->rect.y && y <= this->rect.y + this->rect.h);
 
 }
 
