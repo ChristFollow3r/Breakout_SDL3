@@ -5,7 +5,8 @@
 #include <vector>
 #include <memory>
 #include "rectangle.hpp"
-#include "brick.hpp" // Se que no necessito aquesta llibreria pero em fa mandra cambiar-ho
+#include "brick.hpp"
+#include "button.hpp"
 
 const int width = 1280;
 const int height = 720;
@@ -18,8 +19,8 @@ struct SDLState {
 // ***************************************************************************************************************************************
 static inline float loadScreenWaitingTime = 5.0f;
 bool loadingScreen(SDLState state, float dt, TTF_Font* font, SDL_Texture* texture, SDL_FRect textRect);
+std::unique_ptr<Button> createButton(TTF_Font* font, SDLState state, std::string buttonText, float xPosition, float yPosition);
 // ***************************************************************************************************************************************
-
 // Breakout stuff
 // ***************************************************************************************************************************************
 const float paddleSpeed = 600.0f;

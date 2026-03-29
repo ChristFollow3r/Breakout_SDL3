@@ -96,6 +96,25 @@ bool loadingScreen(SDLState state, float dt, TTF_Font* font, SDL_Texture* textur
 	else return false;
 }
 
+std::unique_ptr<Button> createButton(TTF_Font* font, SDLState state, std::string buttonText, float xPosition, float yPosition) { // Theres a limit for the amount of text that can go to these buttons
+
+TTF_SetFontSize(font, 24);
+
+int buttonWidth = 200;
+int buttonHeight = 100;
+SDL_Color buttonColor = { 255, 255, 255, 255 };
+SDL_FRect buttonRect = { xPosition, yPosition, buttonWidth, buttonHeight };
+
+SDL_Surface* buttonSurface = TTF_RenderText_Blended(font, buttonText.c_str(), NULL, {0, 0, 0, 255}); // So the function asks for length but the documentation says to pass 0 like wtf. Basically it looks for the 0 at the end of a string to determine its length
+SDL_Texture* buttonTexture = SDL_CreateTextureFromSurface(state.renderer, buttonSurface); 
+SDL_DestroySurface(buttonSurface);
+float buttonTextWidth, buttonTextHeight;
+SDL_GetTextureSize(buttonTexture, &buttonTextWidth, &buttonTextHeight);
+SDL_FRect playbuttonTextRect = { xPosition + (buttonWidth - buttonTextWidth) / 2, yPosition + (buttonHeight - buttonTextHeight) / 2, buttonTextWidth, buttonTextHeight };
+return std::make_unique<Button>(buttonRect, state.renderer, buttonColor, buttonTexture, playbuttonTextRect);
+
+}
+
 void paddleMovement(std::shared_ptr<Rectangle> lPaddle, std::shared_ptr<Rectangle> mPaddle, std::shared_ptr<Rectangle> rPaddle, float dt) {
 	const bool* keys = SDL_GetKeyboardState(nullptr);
 	if (keys[SDL_SCANCODE_A]) {
