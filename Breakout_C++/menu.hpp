@@ -3,6 +3,8 @@
 #include "button.hpp"
 #include "ball.hpp"
 
+void drawButton(SDLState state, Button* button);
+
 void menu(SDLState state,
 	TTF_Font* font,
 	std::vector<std::vector<std::shared_ptr<Brick>>>& gridOfBricks,

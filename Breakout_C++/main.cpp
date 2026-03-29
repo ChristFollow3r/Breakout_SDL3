@@ -56,22 +56,22 @@ int main(int arg, char* argv[]) {
 	// Loading screen ********************************************************************************************************************************************
 
 	// New Button Test *******************************************************************************************************************************************
-	TTF_SetFontSize(font, 24);
-	SDL_Surface* playButtonSurface = TTF_RenderText_Blended(font, "PLAY", sizeof(char) * 4, { 255, 255, 255, 255 });
-	SDL_Texture* playButtonTexture = SDL_CreateTextureFromSurface(state.renderer, playButtonSurface);
+	//TTF_SetFontSize(font, 24);
+	//SDL_Surface* playButtonSurface = TTF_RenderText_Blended(font, "PLAY", sizeof(char) * 4, { 255, 255, 255, 255 });
+	//SDL_Texture* playButtonTexture = SDL_CreateTextureFromSurface(state.renderer, playButtonSurface);
 
-	int buttonWidth = 200;
-	int buttonHeight = 100;
+	//int buttonWidth = 200;
+	//int buttonHeight = 100;
 
-	float playButtonTextWidth, playButtonTextHeight;
-	SDL_GetTextureSize(playButtonTexture, &playButtonTextWidth, &playButtonTextHeight);
+	//float playButtonTextWidth, playButtonTextHeight;
+	//SDL_GetTextureSize(playButtonTexture, &playButtonTextWidth, &playButtonTextHeight);
 
 
-	SDL_FRect playbuttonRect = { (width - buttonWidth) / 2, (height - buttonHeight) / 2, buttonWidth, buttonHeight };
-	SDL_FRect playbuttonTextRect = { (width - playButtonTextWidth) / 2, (height - playButtonTextHeight) / 2, playButtonTextWidth, playButtonTextHeight };
-	SDL_Color buttonColor = { 255, 255, 255, 255 };
+	//SDL_FRect playbuttonRect = { (width - buttonWidth) / 2, (height - buttonHeight) / 2, buttonWidth, buttonHeight };
+	//SDL_FRect playbuttonTextRect = { (width - playButtonTextWidth) / 2, (height - playButtonTextHeight) / 2, playButtonTextWidth, playButtonTextHeight };
+	//SDL_Color buttonColor = { 255, 255, 255, 255 };
 
-	auto playButton = std::make_unique<Button>(playbuttonRect, state.renderer, buttonColor, playButtonTexture, playbuttonTextRect);
+	//auto playButton = std::make_unique<Button>(playbuttonRect, state.renderer, buttonColor, playButtonTexture, playbuttonTextRect);
 	// ***********************************************************************************************************************************************************
 
 	bool buttonClicked = false;
@@ -100,9 +100,9 @@ int main(int arg, char* argv[]) {
 		//menu(state, font, gridOfBricks, lPaddle, mPaddle, rPaddle, ball, dt);
 		SDL_SetRenderDrawColor(state.renderer, 255, 255, 255, 255);
 		SDL_RenderClear(state.renderer);
-		playButton->draw(state, playButton->rect, playButton->color);
-		playButton->AddText(state.renderer);
-		playButton->Hovered();
+		//playButton->draw(state, playButton->rect, playButton->color);
+		//playButton->AddText(state.renderer);
+		//playButton->Hovered();
 		SDL_RenderPresent(state.renderer);
 		continue;
 
