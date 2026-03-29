@@ -8,7 +8,6 @@ void Ball::UpdateBallPhysics(std::shared_ptr<Rectangle> lPaddle, std::shared_ptr
 
 	if (this->rect.y > height + 100) {
 
-		lifes--;
 		timer -= dt;
 
 		if (timer < 0) {
@@ -16,6 +15,7 @@ void Ball::UpdateBallPhysics(std::shared_ptr<Rectangle> lPaddle, std::shared_ptr
 			this->rect.y = 640;
 			ballYSpeed = -abs(ballYSpeed);
 			timer = 3.0f; // Fuck this shit bro
+			lifes--;
 		}
 	}
 

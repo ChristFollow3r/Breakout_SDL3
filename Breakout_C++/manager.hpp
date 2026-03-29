@@ -17,7 +17,7 @@ struct SDLState {
 
 // Text Sutff
 // ***************************************************************************************************************************************
-static inline float loadScreenWaitingTime = 5.0f;
+static inline float loadScreenWaitingTime = 2.0f;
 bool loadingScreen(SDLState state, float dt, TTF_Font* font, SDL_Texture* texture, SDL_FRect textRect);
 std::unique_ptr<Button> createButton(TTF_Font* font, SDLState state, std::string buttonText, float xPosition, float yPosition);
 // ***************************************************************************************************************************************

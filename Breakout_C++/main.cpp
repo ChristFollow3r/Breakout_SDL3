@@ -68,7 +68,7 @@ int main(int arg, char* argv[]) {
 	auto exitButton = createButton(font, state, "Exit", (width - buttonWidth) / 2, (buttonHeight * 4) + gap * 3);
 	// ***********************************************************************************************************************************************************
 
-	bool buttonClicked = false;
+	GameState gameState = MENU;
 
 	while (running) {
 
@@ -76,7 +76,6 @@ int main(int arg, char* argv[]) {
 		float dt = deltaTime(lastTick);
 
 		if (loadingScreen(state, dt, font, texture, textRect)) continue;
-		GameState gameState = menu(state, playButton.get(), rankingButton.get(), exitButton.get());
 
 		while (SDL_PollEvent(&event)) {
 
@@ -91,34 +90,37 @@ int main(int arg, char* argv[]) {
 
 				if (event.button.button == SDL_BUTTON_LEFT) {
 
-					switch (gameState) {
+					if (playButton->Clicked()) gameState = GAME;
+					if (rankingButton->Clicked()) gameState = RANKING;
+					if (exitButton->Clicked()) running = false;
 
-					case GameState::MENU:
-						// To add
-						break;
-
-					case GameState::GAME:
-						breakoutGameplay(state, gridOfBricks, lPaddle, mPaddle, rPaddle, ball, dt, lifes);
-						break;
-
-					default:
-						break;
-					}
 				}
 
 			}
 
-
 		}
 
-		SDL_SetRenderDrawColor(state.renderer, 0, 0, 0, 255);
-		SDL_RenderClear(state.renderer);
-		drawButton(state, playButton.get());
-		drawButton(state, rankingButton.get());
-		drawButton(state, creditsButton.get());
-		drawButton(state, exitButton.get());
-		SDL_RenderPresent(state.renderer);
-		continue;
+		switch (gameState) {
+
+		case GameState::MENU: {
+			SDL_SetRenderDrawColor(state.renderer, 0, 0, 0, 255); // I could do a function for this but I'm super tired rn perhaps I don't even change it LOL
+			SDL_RenderClear(state.renderer);
+			drawButton(state, playButton.get());
+			drawButton(state, rankingButton.get());
+			drawButton(state, creditsButton.get());
+			drawButton(state, exitButton.get());
+			SDL_RenderPresent(state.renderer);
+			break;
+		}
+
+		case GameState::GAME:
+			breakoutGameplay(state, gridOfBricks, lPaddle, mPaddle, rPaddle, ball, dt, lifes);
+			break;
+
+		default:
+			break;
+		}
+
 
 
 	}
@@ -127,3 +129,4 @@ int main(int arg, char* argv[]) {
 	return 0;
 
 }
+
