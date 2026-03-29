@@ -3,9 +3,10 @@
 #include <iostream>
 #include <memory>
 #include "manager.hpp"
+#include "menu.hpp"
 #include "gameplay.hpp"
-#include "button.hpp"
 #include "rectangle.hpp"
+#include "button.hpp"
 #include "ball.hpp"
 
 int main(int arg, char* argv[]) {
@@ -44,23 +45,34 @@ int main(int arg, char* argv[]) {
 	TTF_Init();
 	TTF_Font* font = TTF_OpenFont("Emasland_Trial.ttf", 142);
 
-	SDL_Surface* starterSceneTextSurface = TTF_RenderText_Solid(font, "BREAKOUT", 0, { 255, 255, 255, 255 });
+	// Loading screen ********************************************************************************************************************************************
+	SDL_Surface* starterSceneTextSurface = TTF_RenderText_Blended(font, "BREAKOUT", 0, { 255, 255, 255, 255 });
 	SDL_Texture* texture = SDL_CreateTextureFromSurface(state.renderer, starterSceneTextSurface);
 	SDL_DestroySurface(starterSceneTextSurface);
 
 	float textWidht, textHeight;
-	SDL_GetTextureSize(texture, &textWidht, &textHeight); // AI gave me this too
+	SDL_GetTextureSize(texture, &textWidht, &textHeight); // I got this function from AI
+	SDL_FRect textRect = { (width - textWidht) / 2, (height - textHeight) / 2, textWidht, textHeight };
+	// Loading screen ********************************************************************************************************************************************
 
-	SDL_FRect textRect = { (width - textWidht) / 2, (height - textHeight) / 2, textWidht, textHeight }; // AI gave me the x and y formula I was hardcoding the values
+	// New Button Test *******************************************************************************************************************************************
+	TTF_SetFontSize(font, 24);
+	SDL_Surface* playButtonSurface = TTF_RenderText_Blended(font, "PLAY", sizeof(char) * 4, { 255, 255, 255, 255 });
+	SDL_Texture* playButtonTexture = SDL_CreateTextureFromSurface(state.renderer, playButtonSurface);
 
-	SDL_Color buttonColor = { 255, 34, 65, 255 }; // I could use a vector but I don't think it's worth it
-	SDL_FRect buttonRect = { width / 2, height / 2, 100, 100 };
-	SDL_Surface* buttonSurface = TTF_RenderText_Solid(font, "PLAY", 0, { 255, 255, 255, 255 });
-	SDL_Texture* buttonTextTexture = SDL_CreateTextureFromSurface(state.renderer, buttonSurface);
-	SDL_FRect buttonTextRect = { (width - textWidht) / 2, (height - textHeight) / 2, textWidht, textHeight };
-	SDL_DestroySurface(buttonSurface);
+	int buttonWidth = 200;
+	int buttonHeight = 100;
 
-	auto testButton = std::make_shared<Button>(buttonRect, state.renderer, buttonColor, buttonTextTexture, buttonTextRect);
+	float playButtonTextWidth, playButtonTextHeight;
+	SDL_GetTextureSize(playButtonTexture, &playButtonTextWidth, &playButtonTextHeight);
+
+
+	SDL_FRect playbuttonRect = { (width - buttonWidth) / 2, (height - buttonHeight) / 2, buttonWidth, buttonHeight };
+	SDL_FRect playbuttonTextRect = { (width - playButtonTextWidth) / 2, (height - playButtonTextHeight) / 2, playButtonTextWidth, playButtonTextHeight };
+	SDL_Color buttonColor = { 255, 255, 255, 255 };
+
+	auto playButton = std::make_unique<Button>(playbuttonRect, state.renderer, buttonColor, playButtonTexture, playbuttonTextRect);
+	// ***********************************************************************************************************************************************************
 
 	bool buttonClicked = false;
 
@@ -80,19 +92,22 @@ int main(int arg, char* argv[]) {
 				break;
 			case SDL_EVENT_MOUSE_BUTTON_DOWN:
 				buttonClicked = true;
-				testButton->Clicked(buttonClicked);
+				//testButton->Clicked(buttonClicked);
 				break;
 			}
 		}
 
-		SDL_SetRenderDrawColor(state.renderer, 0, 0, 0, 255);
+		//menu(state, font, gridOfBricks, lPaddle, mPaddle, rPaddle, ball, dt);
+		SDL_SetRenderDrawColor(state.renderer, 255, 255, 255, 255);
 		SDL_RenderClear(state.renderer);
-		testButton->draw(state, testButton->rect, testButton->color);
-		testButton->Hovered();
+		playButton->draw(state, playButton->rect, playButton->color);
+		playButton->AddText(state.renderer);
+		playButton->Hovered();
 		SDL_RenderPresent(state.renderer);
+		continue;
 
 		//if (loadingScreen(state, dt, font, texture, textRect)) continue;
-		//breakoutGameplay(state, gridOfBricks, lPaddle, mPaddle, rPaddle, ball, dt);
+		breakoutGameplay(state, gridOfBricks, lPaddle, mPaddle, rPaddle, ball, dt);
 
 	}
 

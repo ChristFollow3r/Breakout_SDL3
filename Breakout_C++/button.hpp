@@ -13,5 +13,6 @@ public:
 
 	void Hovered();
 	void Clicked(bool clicked);
+	void AddText(SDL_Renderer* renderer);
 
 };

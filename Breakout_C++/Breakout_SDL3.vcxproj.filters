@@ -39,6 +39,9 @@
     <ClCompile Include="button.cpp">
       <Filter>Archivos de origen\Class_Definition</Filter>
     </ClCompile>
+    <ClCompile Include="menu.cpp">
+      <Filter>Archivos de origen</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="manager.hpp">
@@ -58,6 +61,9 @@
     </ClInclude>
     <ClInclude Include="button.hpp">
       <Filter>Archivos de encabezado\Class_Declaration</Filter>
+    </ClInclude>
+    <ClInclude Include="menu.hpp">
+      <Filter>Archivos de encabezado</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>
