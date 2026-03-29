@@ -115,6 +115,7 @@ int main(int arg, char* argv[]) {
 
 		case GameState::GAME:
 			breakoutGameplay(state, gridOfBricks, lPaddle, mPaddle, rPaddle, ball, dt, lifes);
+			if (lifes <= 0) gameState = MENU;
 			break;
 
 		default:

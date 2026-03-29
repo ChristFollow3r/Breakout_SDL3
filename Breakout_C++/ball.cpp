@@ -6,16 +6,17 @@ float timer = Ball::ballSpawnTimer;
 
 void Ball::UpdateBallPhysics(std::shared_ptr<Rectangle> lPaddle, std::shared_ptr<Rectangle> mPaddle, std::shared_ptr<Rectangle> rPaddle, float dt, int& lifes) {
 
-	if (this->rect.y > height + 100) {
+	if (this->rect.y > height + 40) {
 
 		timer -= dt;
 
 		if (timer < 0) {
+			lifes--;
+			if (lifes <= 0) return;
 			this->rect.x = 640;
 			this->rect.y = 640;
 			ballYSpeed = -abs(ballYSpeed);
 			timer = 3.0f; // Fuck this shit bro
-			lifes--;
 		}
 	}
 
