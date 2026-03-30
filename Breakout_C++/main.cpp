@@ -43,7 +43,7 @@ int main(int arg, char* argv[]) {
 	// This is for the text stuff
 
 	TTF_Init();
-	TTF_Font* font = TTF_OpenFont("Emasland_Trial.ttf", 142);
+	TTF_Font* font = TTF_OpenFont("Roboto.ttf", 142);
 
 	// Loading screen ********************************************************************************************************************************************
 	SDL_Surface* starterSceneTextSurface = TTF_RenderText_Blended(font, "BREAKOUT", 0, { 255, 255, 255, 255 });
@@ -140,7 +140,7 @@ int main(int arg, char* argv[]) {
 		}
 
 		case GameState::GAME: // I have to reset the gameplay here
-			breakoutGameplay(state, gridOfBricks, lPaddle, mPaddle, rPaddle, ball, dt, lifes, gameState);
+			breakoutGameplay(state, gridOfBricks, lPaddle, mPaddle, rPaddle, ball, dt, lifes, gameState, font);
 			break;
 
 		case GameState::NAME_INPUT:

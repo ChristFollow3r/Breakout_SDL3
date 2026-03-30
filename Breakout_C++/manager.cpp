@@ -29,8 +29,6 @@ void render(SDLState& state, std::shared_ptr<Rectangle> lPaddle, std::shared_ptr
 	for (int i = 0; i < gridOfBricks.size(); i++) {
 		for (auto x : gridOfBricks[i]) x->draw(state, x->rect, x->color);
 	}
-
-	SDL_RenderPresent(state.renderer);
 }
 
 std::vector<std::vector<std::shared_ptr<Brick>>> createBricks(SDLState& state) {

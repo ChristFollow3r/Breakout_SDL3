@@ -15,4 +15,5 @@ void breakoutGameplay(SDLState state,
 	std::shared_ptr<Ball> ball, 
 	float dt,
 	int& lifes, 
-	GameState& gameState);
+	GameState& gameState,
+	TTF_Font* font);
