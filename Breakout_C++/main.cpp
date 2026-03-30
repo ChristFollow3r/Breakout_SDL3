@@ -66,9 +66,12 @@ int main(int arg, char* argv[]) {
 	auto creditsButton = createButton(font, state, "Credits", (width - buttonWidth) / 2, (buttonHeight * 3) + gap * 2);
 	auto exitButton = createButton(font, state, "Exit", (width - buttonWidth) / 2, (buttonHeight * 4) + gap * 3);
 	// ***********************************************************************************************************************************************************
-
 	GameState gameState = MENU;
+	// Ranking stuff
+	std::vector<std::string> rankingValues;
 	std::string playerName = "";
+	int points = 0;
+
 	SDL_FRect textRectangleRect = { (width - 200) / 2, (height - 100) / 2, 200, 100 };
 	SDL_Color textRectangleColor = { 255, 255, 255, 255 };
 	auto textRectangle = std::make_unique<Rectangle>(textRectangleRect, state.renderer, textRectangleColor);
@@ -143,18 +146,11 @@ int main(int arg, char* argv[]) {
 			SDL_SetRenderDrawColor(state.renderer, 0, 0, 0, 255);
 			SDL_RenderClear(state.renderer);
 
+			bigEnterTextDisplay(state, font);
 			textRectangle->draw(state, textRectangle->rect, textRectangle->color);
 
 			if (!playerName.empty()) {
-				TTF_SetFontSize(font, 24); // Reset the font so it doesn't have the size of the loading scene thing
-				SDL_Surface* surface = TTF_RenderText_Blended(font, playerName.c_str(), 0, { 0, 0, 0, 255 }); // We get the playerName string as the const string for the surface
-				SDL_Texture* texture = SDL_CreateTextureFromSurface(state.renderer, surface); // Btw blended makes it so it has antializing (I think thats how you write it) so that the text isn't pixelated.
-				SDL_DestroySurface(surface); // Destroy the surface cause it's not needed once the texture is created
-				float inputTextWidth, inputTextHeight;
-				SDL_GetTextureSize(texture, &inputTextWidth, &inputTextHeight); // AI gave me this I still struggle to understand it
-				SDL_FRect textRect = { (width / 2 - inputTextWidth / 2), (height / 2 - inputTextHeight / 2), inputTextWidth, inputTextHeight };
-				SDL_RenderTexture(state.renderer, texture, NULL, &textRect);
-				SDL_DestroyTexture(texture); 
+				drawInputText(state, font, playerName);
 			}
 			SDL_RenderPresent(state.renderer);
 			break;

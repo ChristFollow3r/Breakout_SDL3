@@ -4,6 +4,7 @@
 #include "button.hpp"
 
 void drawButton(SDLState state, Button* button);
-GameState menu(SDLState state, Button* playButton, Button* rankingButton, Button* exitButton);
+void bigEnterTextDisplay(SDLState state,  TTF_Font* font);
+void drawInputText(SDLState state, TTF_Font* font, std::string playerName);
 
 //void rankingScreen();
