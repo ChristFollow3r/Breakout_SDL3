@@ -21,3 +21,10 @@ void breakoutGameplay(SDLState state,
 	render(state, lPaddle, mPaddle, rPaddle, ball, gridOfBricks);
 
 }
+
+void writeNameForRanking(SDLState state) {
+
+	std::string playerName;
+	SDL_StartTextInput(state.window);
+
+}

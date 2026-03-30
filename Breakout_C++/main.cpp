@@ -95,6 +95,10 @@ int main(int arg, char* argv[]) {
 
 				}
 
+			case SDL_EVENT_TEXT_INPUT:
+
+				break;
+
 			}
 
 		}
@@ -114,7 +118,7 @@ int main(int arg, char* argv[]) {
 
 		case GameState::GAME:
 			breakoutGameplay(state, gridOfBricks, lPaddle, mPaddle, rPaddle, ball, dt, lifes, gameState);
-			//if (lifes <= 0) gameState = MENU;
+			writeNameForRanking(state);
 			break;
 
 		default:
