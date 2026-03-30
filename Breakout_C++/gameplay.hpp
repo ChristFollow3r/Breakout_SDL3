@@ -14,6 +14,7 @@ void breakoutGameplay(SDLState state,
 	std::shared_ptr<Rectangle> rPaddle,
 	std::shared_ptr<Ball> ball, 
 	float dt,
-	int& lifes, 
+	int& lifes,
+	int& points,
 	GameState& gameState,
 	TTF_Font* font);

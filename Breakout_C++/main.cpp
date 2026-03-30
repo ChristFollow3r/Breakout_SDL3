@@ -14,7 +14,6 @@ int main(int arg, char* argv[]) {
 	initialize(state);
 
 	bool running = true;
-	int lifes = 3;
 
 	Uint64 lastTick = SDL_GetTicks();
 	deltaTime(lastTick);
@@ -71,6 +70,9 @@ int main(int arg, char* argv[]) {
 	// Ranking stuff
 	std::vector<std::string> rankingValues;
 	std::string playerName = "";
+
+	//lifes = 0;
+	int lifes = 3;
 	int points = 0;
 
 	SDL_FRect textRectangleRect = { (width - 200) / 2, (height - 100) / 2, 200, 100 };
@@ -140,7 +142,7 @@ int main(int arg, char* argv[]) {
 		}
 
 		case GameState::GAME: // I have to reset the gameplay here
-			breakoutGameplay(state, gridOfBricks, lPaddle, mPaddle, rPaddle, ball, dt, lifes, gameState, font);
+			breakoutGameplay(state, gridOfBricks, lPaddle, mPaddle, rPaddle, ball, dt, lifes, points, gameState, font);
 			break;
 
 		case GameState::NAME_INPUT:
