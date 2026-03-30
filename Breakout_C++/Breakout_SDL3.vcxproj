@@ -140,6 +140,7 @@
     <ClInclude Include="brick.hpp" />
     <ClInclude Include="button.hpp" />
     <ClInclude Include="gameplay.hpp" />
+    <ClInclude Include="gameState.hpp" />
     <ClInclude Include="manager.hpp" />
     <ClInclude Include="menu.hpp" />
     <ClInclude Include="rectangle.hpp" />

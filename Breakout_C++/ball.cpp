@@ -3,21 +3,33 @@
 
 
 float timer = Ball::ballSpawnTimer;
+bool isDead = false;
 
-void Ball::UpdateBallPhysics(std::shared_ptr<Rectangle> lPaddle, std::shared_ptr<Rectangle> mPaddle, std::shared_ptr<Rectangle> rPaddle, float dt, int& lifes) {
+void Ball::UpdateBallPhysics(std::shared_ptr<Rectangle> lPaddle, std::shared_ptr<Rectangle> mPaddle, std::shared_ptr<Rectangle> rPaddle, float dt, int& lifes, GameState& gameState) {
 
 	if (this->rect.y > height + 40) {
+
+		if (!isDead) {
+			isDead = true;
+			lifes--;
+			if (lifes <= 0) {
+				gameState = MENU;
+				return;
+			}
+
+		}
 
 		timer -= dt;
 
 		if (timer < 0) {
-			lifes--;
-			if (lifes <= 0) return;
 			this->rect.x = 640;
 			this->rect.y = 640;
 			ballYSpeed = -abs(ballYSpeed);
-			timer = 3.0f; // Fuck this shit bro
+			timer = Ball::ballSpawnTimer;
+			isDead = false;
 		}
+
+		return;
 	}
 
 	this->rect.x += ballXSpeed * dt;
@@ -47,7 +59,7 @@ void Ball::CheckCollisions(std::shared_ptr<Rectangle> lPaddle, std::shared_ptr<R
 
 	if (this->rect.y <= 0) { // Top side
 		ballYSpeed = -ballYSpeed;
-		this->rect.y = 0;
+		this->rect.y = 0;	
 	}
 
 	if (this->rect.x + ballSize >= width) { // Right side

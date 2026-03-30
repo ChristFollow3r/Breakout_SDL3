@@ -5,8 +5,7 @@
 #include "manager.hpp"
 #include "menu.hpp"
 #include "gameplay.hpp"
-#include "rectangle.hpp"
-#include "button.hpp"
+#include "gameState.hpp"
 #include "ball.hpp"
 
 int main(int arg, char* argv[]) {
@@ -114,8 +113,8 @@ int main(int arg, char* argv[]) {
 		}
 
 		case GameState::GAME:
-			breakoutGameplay(state, gridOfBricks, lPaddle, mPaddle, rPaddle, ball, dt, lifes);
-			if (lifes <= 0) gameState = MENU;
+			breakoutGameplay(state, gridOfBricks, lPaddle, mPaddle, rPaddle, ball, dt, lifes, gameState);
+			//if (lifes <= 0) gameState = MENU;
 			break;
 
 		default:
