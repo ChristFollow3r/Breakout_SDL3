@@ -50,9 +50,9 @@ int main(int arg, char* argv[]) {
 	SDL_Texture* texture = SDL_CreateTextureFromSurface(state.renderer, starterSceneTextSurface);
 	SDL_DestroySurface(starterSceneTextSurface);
 
-	float textWidht, textHeight;
-	SDL_GetTextureSize(texture, &textWidht, &textHeight); // I got this function from AI
-	SDL_FRect textRect = { (width - textWidht) / 2, (height - textHeight) / 2, textWidht, textHeight };
+	float textWidth, textHeight;
+	SDL_GetTextureSize(texture, &textWidth, &textHeight); // I got this function from AI
+	SDL_FRect textRect = { (width - textWidth) / 2, (height - textHeight) / 2, textWidth, textHeight };
 	// Loading screen ********************************************************************************************************************************************
 
 	// Buttons        ********************************************************************************************************************************************
@@ -69,6 +69,9 @@ int main(int arg, char* argv[]) {
 
 	GameState gameState = MENU;
 	std::string playerName = "";
+	SDL_FRect textRectangleRect = { (width - 200) / 2, (height - 100) / 2, 200, 100 };
+	SDL_Color textRectangleColor = { 255, 255, 255, 255 };
+	auto textRectangle = std::make_unique<Rectangle>(textRectangleRect, state.renderer, textRectangleColor);
 
 	while (running) {
 
@@ -101,6 +104,7 @@ int main(int arg, char* argv[]) {
 
 				if (gameState == NAME_INPUT) { // When the game state switches to NAME_INPUT we add every keayboard event to the playerName string.
 					playerName += event.text.text;
+					std::cout << playerName;
 					break;
 				}
 
@@ -109,7 +113,6 @@ int main(int arg, char* argv[]) {
 				if (event.key.key == SDLK_RETURN) {
 					// Rannking bullshit here
 					gameState = MENU;
-					std::cout << playerName;
 					playerName = "";
 					break;
 				}
@@ -131,12 +134,29 @@ int main(int arg, char* argv[]) {
 			break;
 		}
 
-		case GameState::GAME:
+		case GameState::GAME: // I have to reset the gameplay here
 			breakoutGameplay(state, gridOfBricks, lPaddle, mPaddle, rPaddle, ball, dt, lifes, gameState);
 			break;
 
 		case GameState::NAME_INPUT:
-			// What the fuck
+			SDL_StartTextInput(state.window); // Clears the screen after loosing in the gameplay
+			SDL_SetRenderDrawColor(state.renderer, 0, 0, 0, 255);
+			SDL_RenderClear(state.renderer);
+
+			textRectangle->draw(state, textRectangle->rect, textRectangle->color);
+
+			if (!playerName.empty()) {
+				TTF_SetFontSize(font, 24);
+				SDL_Surface* surface = TTF_RenderText_Blended(font, playerName.c_str(), 0, { 0, 0, 0, 255 });
+				SDL_Texture* texture = SDL_CreateTextureFromSurface(state.renderer, surface);
+				SDL_DestroySurface(surface);
+				float inputTextWidth, inputTextHeight;
+				SDL_GetTextureSize(texture, &inputTextWidth, &inputTextHeight);
+				SDL_FRect textRect = { (width / 2 - inputTextWidth / 2), (height / 2 - inputTextHeight / 2), inputTextWidth, inputTextHeight };
+				SDL_RenderTexture(state.renderer, texture, NULL, &textRect);
+				SDL_DestroyTexture(texture); 
+			}
+			SDL_RenderPresent(state.renderer);
 			break;
 
 		default:
