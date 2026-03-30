@@ -142,16 +142,13 @@ int main(int arg, char* argv[]) {
 			break;
 
 		case GameState::NAME_INPUT:
-			SDL_StartTextInput(state.window); // Clears the screen after loosing in the gameplay
+			SDL_StartTextInput(state.window);
 			SDL_SetRenderDrawColor(state.renderer, 0, 0, 0, 255);
 			SDL_RenderClear(state.renderer);
 
-			bigEnterTextDisplay(state, font);
-			textRectangle->draw(state, textRectangle->rect, textRectangle->color);
+			drawText(state, font, "ENTER YOUR NAME", 68, (width / 2), 150, {255, 255, 255, 255}); // I'm thinking I should've made a const of a color long ago but whataver
+			if (!playerName.empty()) drawText(state, font, playerName, 24, width / 2, height / 2, { 255, 255, 255, 255 });
 
-			if (!playerName.empty()) {
-				drawInputText(state, font, playerName);
-			}
 			SDL_RenderPresent(state.renderer);
 			break;
 
