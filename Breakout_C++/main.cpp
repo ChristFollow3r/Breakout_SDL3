@@ -105,7 +105,7 @@ int main(int arg, char* argv[]) {
 				}
 				break;
 
-			case SDL_EVENT_TEXT_INPUT: // It's always listening for keyboard events
+			case SDL_EVENT_TEXT_INPUT: // It's always listening for keyboard events when the start text input function is called
 
 				if (gameState == NAME_INPUT) { // When the game state switches to NAME_INPUT we add every keayboard event to the playerName string.
 					playerName += event.text.text;
@@ -155,7 +155,6 @@ int main(int arg, char* argv[]) {
 			break;
 
 		case GameState::CREDITS:
-			SDL_StartTextInput(state.window);
 			SDL_SetRenderDrawColor(state.renderer, 0, 0, 0, 255);
 			SDL_RenderClear(state.renderer);
 			drawButton(state, backButton.get());
@@ -163,6 +162,7 @@ int main(int arg, char* argv[]) {
 			drawText(state, font, "NIL BADIA GIMENEZ", 128, (width / 2), (height / 2 - 100), { 255, 255, 255, 255 });
 			SDL_RenderPresent(state.renderer);
 			break;
+
 		default:
 			break;
 		}
