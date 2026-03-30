@@ -16,5 +16,3 @@ void breakoutGameplay(SDLState state,
 	float dt,
 	int& lifes, 
 	GameState& gameState);
-
-void writeNameForRanking(SDLState state);

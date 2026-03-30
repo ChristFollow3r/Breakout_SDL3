@@ -68,6 +68,7 @@ int main(int arg, char* argv[]) {
 	// ***********************************************************************************************************************************************************
 
 	GameState gameState = MENU;
+	std::string playerName = "";
 
 	while (running) {
 
@@ -94,10 +95,24 @@ int main(int arg, char* argv[]) {
 					if (exitButton->Clicked()) running = false;
 
 				}
-
-			case SDL_EVENT_TEXT_INPUT:
-
 				break;
+
+			case SDL_EVENT_TEXT_INPUT: // It's always listening for keyboard events
+
+				if (gameState == NAME_INPUT) { // When the game state switches to NAME_INPUT we add every keayboard event to the playerName string.
+					playerName += event.text.text;
+					break;
+				}
+
+			case SDL_EVENT_KEY_DOWN:
+				if (event.key.key == SDLK_BACKSPACE && !playerName.empty()) playerName.pop_back();
+				if (event.key.key == SDLK_RETURN) {
+					// Rannking bullshit here
+					gameState = MENU;
+					std::cout << playerName;
+					playerName = "";
+					break;
+				}
 
 			}
 
@@ -118,7 +133,10 @@ int main(int arg, char* argv[]) {
 
 		case GameState::GAME:
 			breakoutGameplay(state, gridOfBricks, lPaddle, mPaddle, rPaddle, ball, dt, lifes, gameState);
-			writeNameForRanking(state);
+			break;
+
+		case GameState::NAME_INPUT:
+			// What the fuck
 			break;
 
 		default:

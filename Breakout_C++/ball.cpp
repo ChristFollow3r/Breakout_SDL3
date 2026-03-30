@@ -14,7 +14,7 @@ void Ball::UpdateBallPhysics(std::shared_ptr<Rectangle> lPaddle, std::shared_ptr
 			isDead = true;
 			lifes--;
 			if (lifes <= 0) {
-				gameState = MENU;
+				gameState = NAME_INPUT;
 				return;
 			}
 
