@@ -65,6 +65,7 @@ int main(int arg, char* argv[]) {
 	auto rankingButton = createButton(font, state, "Ranking", (width - buttonWidth) / 2, (buttonHeight * 2) + gap);
 	auto creditsButton = createButton(font, state, "Credits", (width - buttonWidth) / 2, (buttonHeight * 3) + gap * 2);
 	auto exitButton = createButton(font, state, "Exit", (width - buttonWidth) / 2, (buttonHeight * 4) + gap * 3);
+	auto backButton = createButton(font, state, "Back", (width - 240), (height - 140));
 	// ***********************************************************************************************************************************************************
 	GameState gameState = MENU;
 	// Ranking stuff
@@ -74,7 +75,6 @@ int main(int arg, char* argv[]) {
 
 	SDL_FRect textRectangleRect = { (width - 200) / 2, (height - 100) / 2, 200, 100 };
 	SDL_Color textRectangleColor = { 255, 255, 255, 255 };
-	auto textRectangle = std::make_unique<Rectangle>(textRectangleRect, state.renderer, textRectangleColor);
 
 	while (running) {
 
@@ -98,6 +98,8 @@ int main(int arg, char* argv[]) {
 
 					if (playButton->Clicked()) gameState = GAME;
 					if (rankingButton->Clicked()) gameState = RANKING;
+					if (creditsButton->Clicked()) gameState = CREDITS;
+					if (backButton->Clicked()) gameState = MENU;
 					if (exitButton->Clicked()) running = false;
 
 				}
@@ -114,7 +116,7 @@ int main(int arg, char* argv[]) {
 			case SDL_EVENT_KEY_DOWN:
 				if (event.key.key == SDLK_BACKSPACE && !playerName.empty()) playerName.pop_back();
 				if (event.key.key == SDLK_RETURN) {
-					// Rannking bullshit here
+					// Ranking bullshit here
 					gameState = MENU;
 					playerName = "";
 					break;
@@ -152,6 +154,15 @@ int main(int arg, char* argv[]) {
 			SDL_RenderPresent(state.renderer);
 			break;
 
+		case GameState::CREDITS:
+			SDL_StartTextInput(state.window);
+			SDL_SetRenderDrawColor(state.renderer, 0, 0, 0, 255);
+			SDL_RenderClear(state.renderer);
+			drawButton(state, backButton.get());
+			drawText(state, font, "MADE BY", 68, (width / 2), 150, { 255, 255, 255, 255 });
+			drawText(state, font, "NIL BADIA GIMENEZ", 128, (width / 2), (height / 2 - 100), { 255, 255, 255, 255 });
+			SDL_RenderPresent(state.renderer);
+			break;
 		default:
 			break;
 		}
