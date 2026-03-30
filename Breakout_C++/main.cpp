@@ -146,12 +146,12 @@ int main(int arg, char* argv[]) {
 			textRectangle->draw(state, textRectangle->rect, textRectangle->color);
 
 			if (!playerName.empty()) {
-				TTF_SetFontSize(font, 24);
-				SDL_Surface* surface = TTF_RenderText_Blended(font, playerName.c_str(), 0, { 0, 0, 0, 255 });
-				SDL_Texture* texture = SDL_CreateTextureFromSurface(state.renderer, surface);
-				SDL_DestroySurface(surface);
+				TTF_SetFontSize(font, 24); // Reset the font so it doesn't have the size of the loading scene thing
+				SDL_Surface* surface = TTF_RenderText_Blended(font, playerName.c_str(), 0, { 0, 0, 0, 255 }); // We get the playerName string as the const string for the surface
+				SDL_Texture* texture = SDL_CreateTextureFromSurface(state.renderer, surface); // Btw blended makes it so it has antializing (I think thats how you write it) so that the text isn't pixelated.
+				SDL_DestroySurface(surface); // Destroy the surface cause it's not needed once the texture is created
 				float inputTextWidth, inputTextHeight;
-				SDL_GetTextureSize(texture, &inputTextWidth, &inputTextHeight);
+				SDL_GetTextureSize(texture, &inputTextWidth, &inputTextHeight); // AI gave me this I still struggle to understand it
 				SDL_FRect textRect = { (width / 2 - inputTextWidth / 2), (height / 2 - inputTextHeight / 2), inputTextWidth, inputTextHeight };
 				SDL_RenderTexture(state.renderer, texture, NULL, &textRect);
 				SDL_DestroyTexture(texture); 
