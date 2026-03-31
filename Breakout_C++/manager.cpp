@@ -94,7 +94,7 @@ bool loadingScreen(SDLState state, float dt, TTF_Font* font, SDL_Texture* textur
 	loadScreenWaitingTime -= dt;
 
 	if (loadScreenWaitingTime > 0) {
-		SDL_SetRenderDrawColor(state.renderer, 0, 0, 0, 255);
+		SDL_SetRenderDrawColor(state.renderer, 15, 20, 40, 255);
 		SDL_RenderClear(state.renderer);
 		SDL_RenderTexture(state.renderer, texture, nullptr, &textRect);
 		SDL_RenderPresent(state.renderer);

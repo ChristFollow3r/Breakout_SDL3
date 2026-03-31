@@ -23,7 +23,7 @@ int main(int arg, char* argv[]) {
 	// Brick creation
 
 	std::vector<std::vector<std::shared_ptr<Brick>>> gridOfBricks = createBricks(state);
-	bool hasReseted = false;
+	bool hasReseted = false; // HERE CHANGE THIS FUCKING TESTS
 
 	// This is for the paddle
 
@@ -38,7 +38,7 @@ int main(int arg, char* argv[]) {
 	//This is for the ball
 
 	SDL_Color ballColor = { 0, 0, 0, 255 };
-	rect = { 720, 550, Ball::ballSize , Ball::ballSize };
+	rect = { width / 2, 550, Ball::ballSize , Ball::ballSize };
 	auto ball = std::make_shared<Ball>(rect, state.renderer, ballColor);
 	ball->ballYSpeed = -ball->ballYSpeed; // I have to flip the ball speed so it starts the game going upwards. I could start with a negative value but this is already done
 
@@ -135,7 +135,7 @@ int main(int arg, char* argv[]) {
 
 		case GameState::MENU: {
 			hasReseted = true;
-			SDL_SetRenderDrawColor(state.renderer, 0, 0, 0, 255); // I could do a function for this but I'm super tired rn perhaps I don't even change it LOL
+			SDL_SetRenderDrawColor(state.renderer, 15, 20, 40, 255); // I could do a function for this but I'm super tired rn perhaps I don't even change it LOL
 			SDL_RenderClear(state.renderer);
 			drawButton(state, playButton.get());
 			drawButton(state, rankingButton.get());
@@ -146,8 +146,19 @@ int main(int arg, char* argv[]) {
 		}
 
 		case GameState::GAME: // I have to reset the gameplay here
+
 			if (hasReseted) {
+				ball->rect.x = width / 2;
+				ball->rect.y = 550; 
+				ball->ballYSpeed = -320.0f;
+				ball->ballXSpeed = 320.0f;
+
+				lPaddle->rect.x = 640;
+				mPaddle->rect.x = 640 + paddleLength;
+				rPaddle->rect.x = 640 + (paddleLength * 2);
+
 				gridOfBricks = createBricks(state);
+
 				lifes = 3;
 				points = 0;
 				hasReseted = false;
@@ -156,7 +167,7 @@ int main(int arg, char* argv[]) {
 			break;
 
 		case GameState::RANKING:
-			SDL_SetRenderDrawColor(state.renderer, 0, 0, 0, 255);
+			SDL_SetRenderDrawColor(state.renderer, 10, 25, 45, 255);
 			SDL_RenderClear(state.renderer);
 			drawButton(state, backButton.get());
 			displayRanking(state, font);
@@ -165,7 +176,7 @@ int main(int arg, char* argv[]) {
 
 		case GameState::NAME_INPUT:
 			SDL_StartTextInput(state.window);
-			SDL_SetRenderDrawColor(state.renderer, 0, 0, 0, 255);
+			SDL_SetRenderDrawColor(state.renderer, 15, 20, 40, 255);
 			SDL_RenderClear(state.renderer);
 
 			drawText(state, font, "ENTER YOUR NAME", 68, (width / 2), 150, {255, 255, 255, 255}); // I'm thinking I should've made a const of a color long ago but whataver
@@ -175,7 +186,7 @@ int main(int arg, char* argv[]) {
 			break;
 
 		case GameState::CREDITS:
-			SDL_SetRenderDrawColor(state.renderer, 0, 0, 0, 255);
+			SDL_SetRenderDrawColor(state.renderer, 10, 35, 35, 255);
 			SDL_RenderClear(state.renderer);
 			drawButton(state, backButton.get());
 			drawText(state, font, "MADE BY", 68, (width / 2), 150, { 255, 255, 255, 255 });
