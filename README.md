@@ -19,11 +19,11 @@ AI if that function did indeed what I thought it did. I'm writing this on the 28
 
 > I also used AI every single time I had circular libraries issues (so far about 3 times). 
 
-<b>If you have any questions feel free to ask.</b>
+<b>If you have any questions feel free to ask.<b>
 
 > PD: I was going to do the breakout with Pau, but dude wanted to use a kind of engine he made and theres no way I was going to learn to use his "engine". Also dude waits until the last day to do this kind of stuff and I want this
 to be done before monday so I can relax while on vacation.
 
-<h4><b>Known bugs</b></h4>
-- If you click with the mouse on the "enter your name scene", the game will take you to the credits scene :)
+<h4>Known bugs<h4>
+- If you click with the mouse on the "enter your name scene", the game will take you to the credits scene :) <br>
 - After every first game, the second time the player losses one life it won't count it, and the number will only drop the next time he losses the ball.
