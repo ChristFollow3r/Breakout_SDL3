@@ -148,6 +148,7 @@ int main(int arg, char* argv[]) {
 			if (hasReseted) {
 				gridOfBricks = createBricks(state);
 				lifes = 3;
+				points = 0;
 				hasReseted = false;
 			}
 			breakoutGameplay(state, gridOfBricks, lPaddle, mPaddle, rPaddle, ball, dt, lifes, points, gameState, font);
