@@ -11,6 +11,10 @@
 
 int main(int arg, char* argv[]) {
 
+	std::fstream file("ranking.bin", std::ios::app | std::ios::binary); // AI told me to put this here cause when doing the build for github 
+	file.close(); // It freaks out when writing the name cuase it doesnt find the binary. Hopefully this fixes it.
+
+
 	srand(time(NULL));
 	SDLState state;
 	initialize(state);
