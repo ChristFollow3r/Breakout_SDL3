@@ -48,7 +48,7 @@ void Ball::CheckCollisions(std::shared_ptr<Rectangle> lPaddle, std::shared_ptr<R
 
 	else if (SDL_HasRectIntersectionFloat(&this->rect, &mPaddle->rect)) {
 		ballXSpeed = 0.0f;
-		ballYSpeed = -ballXConstSpeed - 155; // Yeah magic number but very much needed
+		ballYSpeed = -ballXConstSpeed - 155; // Yeah magic number but very much needed. It fucks up the making the ball faster mechanic but whatever, it's a feature now.
 		this->rect.y = height - ((height - lPaddle->rect.y) + ballSize);
 	}
 

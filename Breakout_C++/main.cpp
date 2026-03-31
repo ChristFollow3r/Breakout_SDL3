@@ -11,6 +11,7 @@
 
 int main(int arg, char* argv[]) {
 
+	srand(time(NULL));
 	SDLState state;
 	initialize(state);
 

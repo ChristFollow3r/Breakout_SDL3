@@ -1,4 +1,5 @@
 #include "manager.hpp"
+#include "ball.hpp"
 
 void initialize(SDLState& state){
 
@@ -18,13 +19,22 @@ void initialize(SDLState& state){
 	}
 }
 
-void render(SDLState& state, std::shared_ptr<Rectangle> lPaddle, std::shared_ptr<Rectangle> mPaddle, std::shared_ptr<Rectangle> rPaddle, std::shared_ptr<Rectangle> ball, std::vector<std::vector<std::shared_ptr<Brick>>> gridOfBricks) {
+void render(SDLState& state, std::shared_ptr<Rectangle> lPaddle, std::shared_ptr<Rectangle> mPaddle, std::shared_ptr<Rectangle> rPaddle, std::shared_ptr<Rectangle> ball, std::vector<std::vector<std::shared_ptr<Brick>>> gridOfBricks, GameState& gameState) {
 	SDL_SetRenderDrawColor(state.renderer, 255, 255, 255, 255);
 	SDL_RenderClear(state.renderer);
 	ball->draw(state, ball->rect, ball->color);
 	lPaddle->draw(state, lPaddle->rect, lPaddle->color);
 	mPaddle->draw(state, mPaddle->rect, mPaddle->color);
 	rPaddle->draw(state, rPaddle->rect, rPaddle->color);
+	int counter = 0;
+	for (auto x : gridOfBricks)
+	{
+		if (x.empty()) counter++;
+		if (counter >= gridOfBricks.size()) {
+			gameState = NAME_INPUT;
+			counter = 0;
+		}
+	}
 
 	for (int i = 0; i < gridOfBricks.size(); i++) {
 		for (auto x : gridOfBricks[i]) x->draw(state, x->rect, x->color);
@@ -46,7 +56,6 @@ std::vector<std::vector<std::shared_ptr<Brick>>> createBricks(SDLState& state) {
 	float xOffset = 5;
 	float yOffset = 5;
 
-	SDL_Color brickColor = { 60, 125, 68, 255 };
 
 	for (int i = 0; i < 8; i++)
 	{
@@ -54,6 +63,7 @@ std::vector<std::vector<std::shared_ptr<Brick>>> createBricks(SDLState& state) {
 
 		for (int j = 0; j < 13; j++)
 		{
+			SDL_Color brickColor = { rand() % 255, rand() % 255, rand() % 255, 255 }; // Random colors why not
 			SDL_FRect brickRect = { xUpdatedPosition, yUpdatedPosition, brickWidth, brickHeight };
 			auto brick = std::make_shared<Brick>(brickRect, state.renderer, brickColor);
 

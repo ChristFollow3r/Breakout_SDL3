@@ -36,7 +36,7 @@ void breakoutGameplay(SDLState state,
 		points += 100;
 	}
 
-	render(state, lPaddle, mPaddle, rPaddle, ball, gridOfBricks);
+	render(state, lPaddle, mPaddle, rPaddle, ball, gridOfBricks, gameState);
 	drawText(state, font, std::to_string(lifes), 38, width - 25,  0, black);
 	drawText(state, font, std::to_string(points), 38, 75, 0, black);
 	SDL_RenderPresent(state.renderer);

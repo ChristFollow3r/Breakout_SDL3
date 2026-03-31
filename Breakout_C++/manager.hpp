@@ -7,6 +7,7 @@
 #include "rectangle.hpp"
 #include "brick.hpp"
 #include "button.hpp"
+#include "gameState.hpp"
 
 const int width = 1280;
 const int height = 720;
@@ -30,7 +31,7 @@ const int paddleRightLimit = width - paddleLength;
 const int paddleLeftLimit = 0;
 
 void initialize(SDLState& state);
-void render(SDLState& state, std::shared_ptr<Rectangle> lPaddle, std::shared_ptr<Rectangle> mPaddle, std::shared_ptr<Rectangle> rPaddle, std::shared_ptr<Rectangle> ball, std::vector<std::vector<std::shared_ptr<Brick>>> gridOfBricks);
+void render(SDLState& state, std::shared_ptr<Rectangle> lPaddle, std::shared_ptr<Rectangle> mPaddle, std::shared_ptr<Rectangle> rPaddle, std::shared_ptr<Rectangle> ball, std::vector<std::vector<std::shared_ptr<Brick>>> gridOfBricks, GameState& gameState);
 std::vector<std::vector<std::shared_ptr<Brick>>> createBricks(SDLState& state);
 float deltaTime(Uint64& lastTick);
 
