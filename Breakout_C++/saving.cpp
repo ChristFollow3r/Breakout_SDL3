@@ -97,7 +97,7 @@ void displayRanking(SDLState state, TTF_Font* font) {
 
 	for (auto x : top5) {
 
-		std::string nameAndScore = x.first + " " + std::to_string(x.second);
+		std::string nameAndScore = x.first + ": " + std::to_string(x.second);
 		drawText(state, font, nameAndScore, 32, (width / 2), gap, { 255, 255, 255, 255});
 		gap += 80;
 

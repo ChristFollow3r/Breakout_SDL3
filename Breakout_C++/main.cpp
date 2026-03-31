@@ -22,6 +22,7 @@ int main(int arg, char* argv[]) {
 	// Brick creation
 
 	std::vector<std::vector<std::shared_ptr<Brick>>> gridOfBricks = createBricks(state);
+	bool hasReseted = false;
 
 	// This is for the paddle
 
@@ -132,6 +133,7 @@ int main(int arg, char* argv[]) {
 		switch (gameState) {
 
 		case GameState::MENU: {
+			hasReseted = true;
 			SDL_SetRenderDrawColor(state.renderer, 0, 0, 0, 255); // I could do a function for this but I'm super tired rn perhaps I don't even change it LOL
 			SDL_RenderClear(state.renderer);
 			drawButton(state, playButton.get());
@@ -143,6 +145,11 @@ int main(int arg, char* argv[]) {
 		}
 
 		case GameState::GAME: // I have to reset the gameplay here
+			if (hasReseted) {
+				gridOfBricks = createBricks(state);
+				lifes = 3;
+				hasReseted = false;
+			}
 			breakoutGameplay(state, gridOfBricks, lPaddle, mPaddle, rPaddle, ball, dt, lifes, points, gameState, font);
 			break;
 
