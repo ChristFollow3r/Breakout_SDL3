@@ -2,10 +2,11 @@
 #include <SDL3_ttf/SDL_ttf.h>
 #include <iostream>
 #include <memory>
-#include "manager.hpp"
-#include "menu.hpp"
-#include "gameplay.hpp"
 #include "gameState.hpp"
+#include "gameplay.hpp"
+#include "manager.hpp"
+#include "saving.hpp"
+#include "menu.hpp"
 #include "ball.hpp"
 
 int main(int arg, char* argv[]) {
@@ -118,7 +119,7 @@ int main(int arg, char* argv[]) {
 			case SDL_EVENT_KEY_DOWN:
 				if (event.key.key == SDLK_BACKSPACE && !playerName.empty()) playerName.pop_back();
 				if (event.key.key == SDLK_RETURN) {
-					// Ranking bullshit here
+					saveToBinary(playerName, points, state);
 					gameState = MENU;
 					playerName = "";
 					break;
@@ -143,6 +144,14 @@ int main(int arg, char* argv[]) {
 
 		case GameState::GAME: // I have to reset the gameplay here
 			breakoutGameplay(state, gridOfBricks, lPaddle, mPaddle, rPaddle, ball, dt, lifes, points, gameState, font);
+			break;
+
+		case GameState::RANKING:
+			SDL_SetRenderDrawColor(state.renderer, 0, 0, 0, 255);
+			SDL_RenderClear(state.renderer);
+			drawButton(state, backButton.get());
+			displayRanking(state, font);
+			SDL_RenderPresent(state.renderer);
 			break;
 
 		case GameState::NAME_INPUT:

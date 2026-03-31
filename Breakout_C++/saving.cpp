@@ -1,42 +1,79 @@
-	#include "saving.hpp"
-	#include <algorithm>
+#include "saving.hpp"
+#include <algorithm>
 	
 
-	// This is bullshit
+// This is bullshit
 
-	void saveToBinary(std::string playerName, int points) {
+void saveToBinary(std::string playerName, int points, SDLState state) { // I will write everything into the binary but only display the top 5
 
-		std::fstream file("ranking.bin", std::ios::out | std::ios::binary);
-		int playerNameSize = playerName.size();
-		file.write(reinterpret_cast<char*>(&playerNameSize), sizeof(int));
-		file.write(playerName.c_str(), playerNameSize);
-		file.write(reinterpret_cast<char*>(&points), sizeof(int));
-		file.close();
+	std::fstream file("ranking.bin", std::ios::out | std::ios::binary);
+	if (!file.is_open()) SDL_ShowSimpleMessageBox(SDL_MESSAGEBOX_ERROR, "ERROR", "Failed to open binary", state.window);
+	int playerNameSize = playerName.size();
+	file.write(reinterpret_cast<char*>(&playerNameSize), sizeof(int));
+	file.write(playerName.c_str(), playerNameSize);
+	file.write(reinterpret_cast<char*>(&points), sizeof(int));
+	file.close();
+	
 
-	}
+}
 
-	std::vector<std::string> sortInventory() {
+std::vector<std::pair<std::string, int>> getBinaryInfo(SDLState state) {
 
-		std::vector<std::string> rankingContent;
-		std::fstream file("ranking.bin", std::ios::in | std::ios::binary);
+	std::vector<std::pair<std::string, int>> rankingContent;
+	std::fstream file("ranking.bin", std::ios::in | std::ios::binary);
+	if (!file.is_open()) SDL_ShowSimpleMessageBox(SDL_MESSAGEBOX_ERROR, "ERROR", "Failed to open binary", state.window);
 
-		std::string temp;
+	
+	while (!file.eof()) {
+
 		int size;
+		std::pair<std::string, int> temp;
+
+		file.read(reinterpret_cast<char*>(&size), sizeof(int)); // Int string length
+		temp.first.resize(size);
+		file.read(&temp.first[0], size); // String
+		file.read(reinterpret_cast<char*>(&temp.second), sizeof(int)); // Int score
 	
-		while (!file.eof()) {
+		rankingContent.push_back(temp);
+	}
+	file.close();
 
-			file.read(reinterpret_cast<char*>(&size), sizeof(int));
-			file.read(reinterpret_cast<char*>(&temp), size);
-			file.read(reinterpret_cast<char*>(&size), sizeof(int));
-			static_cast<std::string>(temp);
-			temp += " ";
-			temp += std::to_string(size);
-			rankingContent.push_back(temp);
-
-		}
+	return rankingContent;
 
 
+}
+
+std::vector<std::pair<std::string, int>> sortRanking(SDLState state) {
+
+	std::vector<std::pair<std::string, int>> sortedRankingContent = getBinaryInfo(state);
+	std::vector<std::pair<std::string, int>> top5;
+
+	std::sort(sortedRankingContent.begin(), sortedRankingContent.end(), [](auto& a, auto& b) { return a.second > b.second;}); // I asked AI if sorting like that would sort by the int (the second) or by the strinig (the first)
+	// and it said it would do it by the string and that I need a lambda to tell the sorting alogrythm how to sort the vector of pairs.
+	// Theres also this function called std::greater whichs appears to do the same as im doing here but the documentation: https://en.cppreference.com/w/cpp/utility/functional/greater.html it's so ugly
+	// that I won't bother to try and understand it
+
+	for (int i = 0; i < sortedRankingContent.size(); i++)
+	{
+		if (i > 4) break;
+		top5.push_back(sortedRankingContent[i]);
+	}
+
+	return top5;
+}
 
 
+void displayRanking(SDLState state, TTF_Font* font) {
+
+	std::vector<std::pair<std::string, int>> top5 = sortRanking(state);
+
+	for (auto x : top5) {
+
+		std::string nameAndScore = x.first + " " + std::to_string(x.second);
+		int gap = 150;
+		drawText(state, font, nameAndScore, 32, (width / 2), gap, { 255, 255, 255, 255});
+		gap += gap;
 
 	}
+
+}

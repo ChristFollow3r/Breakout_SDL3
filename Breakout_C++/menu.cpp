@@ -14,7 +14,7 @@ void drawText(SDLState state, TTF_Font* font, std::string text, int fontSize, fl
 	SDL_Texture* texture = SDL_CreateTextureFromSurface(state.renderer, surface);
 	SDL_DestroySurface(surface);
 	float textWidth, textHeight;
-	SDL_GetTextureSize(texture, &textWidth, &textHeight); // This part I don't understand. AI gave me this (same comment is written somewhere else, I don't remember when).
+	SDL_GetTextureSize(texture, &textWidth, &textHeight); // This part I don't understand. AI gave me this (same comment is written somewhere else, I don't remember where).
 	SDL_FRect textRect = { x - textWidth / 2, y, textWidth, textHeight };
 	SDL_RenderTexture(state.renderer, texture, NULL, &textRect);
 	SDL_DestroyTexture(texture);
