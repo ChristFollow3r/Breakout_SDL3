@@ -23,3 +23,7 @@ AI if that function did indeed what I thought it did. I'm writing this on the 28
 
 > PD: I was going to do the breakout with Pau, but dude wanted to use a kind of engine he made and theres no way I was going to learn to use his "engine". Also dude waits until the last day to do this kind of stuff and I want this
 to be done before monday so I can relax while on vacation.
+
+<b>Known bugs<b>
+- If you click with the mouse on the "enter your name scene", the game will take you to the credits scene :)
+- After every first game, the second time the player losses one life it won't count it, and the number will only drop the next time he losses the ball.
