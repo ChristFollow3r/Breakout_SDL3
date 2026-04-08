@@ -9,7 +9,7 @@ void saveToBinary(std::string playerName, int points, SDLState state) {
 	std::fstream file("ranking.bin", std::ios::in | std::ios::binary);
 	std::vector<std::pair<std::string, int>> rankingContent;
 
-	while (!file.eof()) {
+	while (file.peek() != EOF) { // Explanation of why I changed this below
 
 		int size;
 		std::pair<std::string, int> temp;
@@ -51,8 +51,8 @@ std::vector<std::pair<std::string, int>> getBinaryInfo(SDLState state) {
 	if (!file.is_open()) SDL_ShowSimpleMessageBox(SDL_MESSAGEBOX_ERROR, "ERROR", "Failed to open binary", state.window);
 
 	
-	while (!file.eof()) {
-
+	while (file.peek() != EOF) { // Claude is telling me that this loop was reading garbage values and that thats why the release was freaking out
+		// When saving the name I dont think thats it but at this point im willing to try anything
 		int size;
 		std::pair<std::string, int> temp;
 

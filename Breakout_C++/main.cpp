@@ -11,6 +11,9 @@
 
 int main(int arg, char* argv[]) {
 
+	std::fstream file("ranking.bin", std::ios::app | std::ios::binary);
+	file.close();
+
 	srand(time(NULL));
 	SDLState state;
 	initialize(state);
