@@ -89,18 +89,3 @@ std::vector<std::pair<std::string, int>> sortRanking(SDLState state) {
 	return top5;
 }
 
-
-void displayRanking(SDLState state, TTF_Font* font) {
-
-	std::vector<std::pair<std::string, int>> top5 = sortRanking(state);
-	int gap = 150;
-
-	for (auto x : top5) {
-
-		std::string nameAndScore = x.first + ": " + std::to_string(x.second);
-		drawText(state, font, nameAndScore, 32, (width / 2), gap, { 255, 255, 255, 255});
-		gap += 80;
-
-	}
-
-}

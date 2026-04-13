@@ -129,23 +129,32 @@
   <ItemGroup>
     <ClCompile Include="ball.cpp" />
     <ClCompile Include="button.cpp" />
-    <ClCompile Include="gameplay.cpp" />
+    <ClCompile Include="credits.cpp" />
+    <ClCompile Include="gameScene.cpp" />
     <ClCompile Include="main.cpp" />
+    <ClCompile Include="mainMenu.cpp" />
     <ClCompile Include="manager.cpp" />
-    <ClCompile Include="menu.cpp" />
+    <ClCompile Include="nameInput.cpp" />
+    <ClCompile Include="ranking.cpp" />
     <ClCompile Include="rectangle.cpp" />
     <ClCompile Include="saving.cpp" />
+    <ClCompile Include="utils.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="ball.hpp" />
     <ClInclude Include="brick.hpp" />
     <ClInclude Include="button.hpp" />
-    <ClInclude Include="gameplay.hpp" />
+    <ClInclude Include="credits.hpp" />
+    <ClInclude Include="gameScene.hpp" />
     <ClInclude Include="gameState.hpp" />
+    <ClInclude Include="mainMenu.hpp" />
     <ClInclude Include="manager.hpp" />
-    <ClInclude Include="menu.hpp" />
+    <ClInclude Include="nameInput.hpp" />
+    <ClInclude Include="ranking.hpp" />
     <ClInclude Include="rectangle.hpp" />
     <ClInclude Include="saving.hpp" />
+    <ClInclude Include="scene.hpp" />
+    <ClInclude Include="utils.hpp" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

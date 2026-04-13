@@ -16,8 +16,11 @@
     <Filter Include="Archivos de origen\Class_Definition">
       <UniqueIdentifier>{5ef0ddb6-830c-428d-968d-c93fdfdbbed6}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Archivos de encabezado\Class_Declaration">
+    <Filter Include="Archivos de encabezado\Game_Objects_Declaration">
       <UniqueIdentifier>{7ceedf48-e02f-48ed-9a39-86ad7ec47c32}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Archivos de encabezado\Class_Declaration">
+      <UniqueIdentifier>{53251a3c-e7dd-4cb6-9eb5-1ad9dafab2b7}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>
@@ -33,16 +36,28 @@
     <ClCompile Include="ball.cpp">
       <Filter>Archivos de origen\Class_Definition</Filter>
     </ClCompile>
-    <ClCompile Include="gameplay.cpp">
-      <Filter>Archivos de origen</Filter>
-    </ClCompile>
     <ClCompile Include="button.cpp">
       <Filter>Archivos de origen\Class_Definition</Filter>
     </ClCompile>
-    <ClCompile Include="menu.cpp">
+    <ClCompile Include="saving.cpp">
+      <Filter>Archivos de origen\Class_Definition</Filter>
+    </ClCompile>
+    <ClCompile Include="utils.cpp">
       <Filter>Archivos de origen</Filter>
     </ClCompile>
-    <ClCompile Include="saving.cpp">
+    <ClCompile Include="mainMenu.cpp">
+      <Filter>Archivos de origen\Class_Definition</Filter>
+    </ClCompile>
+    <ClCompile Include="gameScene.cpp">
+      <Filter>Archivos de origen\Class_Definition</Filter>
+    </ClCompile>
+    <ClCompile Include="credits.cpp">
+      <Filter>Archivos de origen\Class_Definition</Filter>
+    </ClCompile>
+    <ClCompile Include="ranking.cpp">
+      <Filter>Archivos de origen\Class_Definition</Filter>
+    </ClCompile>
+    <ClCompile Include="nameInput.cpp">
       <Filter>Archivos de origen\Class_Definition</Filter>
     </ClCompile>
   </ItemGroup>
@@ -51,27 +66,42 @@
       <Filter>Archivos de encabezado</Filter>
     </ClInclude>
     <ClInclude Include="rectangle.hpp">
-      <Filter>Archivos de encabezado\Class_Declaration</Filter>
+      <Filter>Archivos de encabezado\Game_Objects_Declaration</Filter>
     </ClInclude>
     <ClInclude Include="ball.hpp">
-      <Filter>Archivos de encabezado\Class_Declaration</Filter>
+      <Filter>Archivos de encabezado\Game_Objects_Declaration</Filter>
     </ClInclude>
     <ClInclude Include="brick.hpp">
-      <Filter>Archivos de encabezado\Class_Declaration</Filter>
-    </ClInclude>
-    <ClInclude Include="gameplay.hpp">
-      <Filter>Archivos de encabezado</Filter>
+      <Filter>Archivos de encabezado\Game_Objects_Declaration</Filter>
     </ClInclude>
     <ClInclude Include="button.hpp">
-      <Filter>Archivos de encabezado\Class_Declaration</Filter>
-    </ClInclude>
-    <ClInclude Include="menu.hpp">
-      <Filter>Archivos de encabezado</Filter>
+      <Filter>Archivos de encabezado\Game_Objects_Declaration</Filter>
     </ClInclude>
     <ClInclude Include="gameState.hpp">
       <Filter>Archivos de encabezado</Filter>
     </ClInclude>
     <ClInclude Include="saving.hpp">
+      <Filter>Archivos de encabezado</Filter>
+    </ClInclude>
+    <ClInclude Include="scene.hpp">
+      <Filter>Archivos de encabezado\Class_Declaration</Filter>
+    </ClInclude>
+    <ClInclude Include="utils.hpp">
+      <Filter>Archivos de encabezado</Filter>
+    </ClInclude>
+    <ClInclude Include="mainMenu.hpp">
+      <Filter>Archivos de encabezado\Class_Declaration</Filter>
+    </ClInclude>
+    <ClInclude Include="gameScene.hpp">
+      <Filter>Archivos de encabezado\Class_Declaration</Filter>
+    </ClInclude>
+    <ClInclude Include="credits.hpp">
+      <Filter>Archivos de encabezado\Class_Declaration</Filter>
+    </ClInclude>
+    <ClInclude Include="ranking.hpp">
+      <Filter>Archivos de encabezado</Filter>
+    </ClInclude>
+    <ClInclude Include="nameInput.hpp">
       <Filter>Archivos de encabezado</Filter>
     </ClInclude>
   </ItemGroup>

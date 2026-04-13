@@ -2,210 +2,129 @@
 #include <SDL3_ttf/SDL_ttf.h>
 #include <iostream>
 #include <memory>
+#include <fstream>
 #include "gameState.hpp"
-#include "gameplay.hpp"
 #include "manager.hpp"
-#include "saving.hpp"
-#include "ball.hpp"
+#include "mainMenu.hpp"
+#include "gameScene.hpp"
+#include "ranking.hpp"
+#include "credits.hpp"
+#include "nameInput.hpp"
 
 int main(int arg, char* argv[]) {
 
-	std::fstream file("ranking.bin", std::ios::app | std::ios::binary);
-	file.close();
+    std::fstream file("ranking.bin", std::ios::app | std::ios::binary);
+    file.close();
 
-	srand(time(NULL));
-	SDLState state;
-	initialize(state);
+    srand(time(NULL));
+    SDLState state;
+    initialize(state);
 
-	bool running = true;
+    TTF_Init();
+    TTF_Font* font = TTF_OpenFont("Roboto.ttf", 142);
 
-	Uint64 lastTick = SDL_GetTicks();
-	deltaTime(lastTick);
+    bool running = true;
+    Uint64 lastTick = SDL_GetTicks();
+    deltaTime(lastTick);
 
-	// Brick creation
+    GameState currentState = MENU;
 
-	std::vector<std::vector<std::shared_ptr<Brick>>> gridOfBricks = createBricks(state);
-	bool hasReseted = false; // HERE CHANGE THIS FUCKING TESTS
+    MainMenu menu(state, font);
+    std::unique_ptr<GameScene> game;
+    std::unique_ptr<RankingScene> ranking;
+    std::unique_ptr<CreditsScene> credits;
+    std::unique_ptr<NameInput> nameInput;
 
-	// This is for the paddle
+    while (running) {
 
-	SDL_Color paddleColor = { 255, 0, 0, 255 }; // I could use a vector but I don't think it's worth it
-	SDL_FRect rect = { 640, 640, paddleLength, 10 };
-	auto lPaddle = std::make_shared<Rectangle>(rect, state.renderer, paddleColor);
-	rect.x += paddleLength;
-	auto mPaddle = std::make_shared<Rectangle>(rect, state.renderer, paddleColor);
-	rect.x += paddleLength;
-	auto rPaddle = std::make_shared<Rectangle>(rect, state.renderer, paddleColor);
+        SDL_Event event{ 0 };
+        float dt = deltaTime(lastTick);
 
-	//This is for the ball
+        while (SDL_PollEvent(&event)) {
+            if (event.type == SDL_EVENT_QUIT) running = false;
 
-	SDL_Color ballColor = { 0, 0, 0, 255 };
-	rect = { width / 2, 550, Ball::ballSize , Ball::ballSize };
-	auto ball = std::make_shared<Ball>(rect, state.renderer, ballColor);
-	ball->ballYSpeed = -ball->ballYSpeed; // I have to flip the ball speed so it starts the game going upwards. I could start with a negative value but this is already done
+            switch (currentState) {
+            case MENU:    menu.HandleEvent(event); break;
+            case GAME:    if (game)    game->HandleEvent(event); break;
+            case RANKING: if (ranking) ranking->HandleEvent(event); break;
+            case CREDITS: if (credits) credits->HandleEvent(event); break;
+            case NAME_INPUT: if (nameInput) nameInput->HandleEvent(event); break;
+            default: break;
+            }
+        }
 
-	// This is for the text stuff
+        switch (currentState) {
+        case MENU:
+            menu.Update(dt);
+            menu.Render();
+            if (menu.gameState == GAME) {
+                game = std::make_unique<GameScene>(state, font);
+                currentState = GAME;
+                menu.gameState = MENU;
+            }
+            if (menu.gameState == RANKING) {
+                ranking = std::make_unique<RankingScene>(state, font);
+                currentState = RANKING;
+                menu.gameState = MENU;
+            }
+            if (menu.gameState == CREDITS) {
+                credits = std::make_unique<CreditsScene>(state, font);
+                currentState = CREDITS;
+                menu.gameState = MENU;
+            }
+            if (menu.gameState == EXIT) running = false;
+            break;
 
-	TTF_Init();
-	TTF_Font* font = TTF_OpenFont("Roboto.ttf", 142);
+        case GAME:
+            if (game) {
+                game->Update(dt);
+                game->Render();
+                if (game->gameState == NAME_INPUT) {
+                    nameInput = std::make_unique<NameInput>(state, font, game->points);
+                    currentState = NAME_INPUT;
+                    game->gameState = GAME;
+                }
+            }
+            break;
 
-	// Loading screen ********************************************************************************************************************************************
-	SDL_Surface* starterSceneTextSurface = TTF_RenderText_Blended(font, "BREAKOUT", 0, { 255, 255, 255, 255 });
-	SDL_Texture* texture = SDL_CreateTextureFromSurface(state.renderer, starterSceneTextSurface);
-	SDL_DestroySurface(starterSceneTextSurface);
+        case RANKING:
+            if (ranking) {
+                ranking->Update(dt);
+                ranking->Render();
+                if (ranking->gameState == MENU) {
+                    currentState = MENU;
+                    ranking.reset();
+                }
+            }
+            break;
 
-	float textWidth, textHeight;
-	SDL_GetTextureSize(texture, &textWidth, &textHeight); // I got this function from AI
-	SDL_FRect textRect = { (width - textWidth) / 2, (height - textHeight) / 2, textWidth, textHeight };
-	// Loading screen ********************************************************************************************************************************************
+        case CREDITS:
+            if (credits) {
+                credits->Update(dt);
+                credits->Render();
+                if (credits->gameState == MENU) {
+                    currentState = MENU;
+                    credits.reset();
+                }
+            }
+            break;
 
-	// Buttons        ********************************************************************************************************************************************
-	TTF_SetFontSize(font, 24);
-	int buttonWidth = 200;
-	int buttonHeight = 100;
-	int gap = 20;
+        case NAME_INPUT:
+            if (nameInput) {
+                nameInput->Update(dt);
+                nameInput->Render();
+                if (nameInput->gameState == MENU) {
+                    currentState = MENU;
+                    nameInput.reset();
+                    game.reset();
+                }
+            }
+            break;
 
-	auto playButton = createButton(font, state, "Play", (width - buttonWidth) / 2, buttonHeight);
-	auto rankingButton = createButton(font, state, "Ranking", (width - buttonWidth) / 2, (buttonHeight * 2) + gap);
-	auto creditsButton = createButton(font, state, "Credits", (width - buttonWidth) / 2, (buttonHeight * 3) + gap * 2);
-	auto exitButton = createButton(font, state, "Exit", (width - buttonWidth) / 2, (buttonHeight * 4) + gap * 3);
-	auto backButton = createButton(font, state, "Back", (width - 240), (height - 140));
-	// ***********************************************************************************************************************************************************
-	GameState gameState = MENU;
-	// Ranking stuff
-	std::vector<std::string> rankingValues;
-	std::string playerName = "";
+        default: break;
+        }
+    }
 
-	//lifes = 0;
-	int lifes = 3;
-	int points = 0;
-
-	SDL_FRect textRectangleRect = { (width - 200) / 2, (height - 100) / 2, 200, 100 };
-	SDL_Color textRectangleColor = { 255, 255, 255, 255 };
-
-	while (running) {
-
-		SDL_Event event{ 0 };
-		float dt = deltaTime(lastTick);
-
-		if (loadingScreen(state, dt, font, texture, textRect)) continue;
-
-		while (SDL_PollEvent(&event)) {
-
-			switch (event.type) {
-
-			case SDL_EVENT_QUIT:
-				cleanUp(state);
-				running = false;
-				break;
-
-			case SDL_EVENT_MOUSE_BUTTON_DOWN:
-
-				if (event.button.button == SDL_BUTTON_LEFT) {
-
-					if (playButton->Clicked()) gameState = GAME;
-					if (rankingButton->Clicked()) gameState = RANKING;
-					if (creditsButton->Clicked()) gameState = CREDITS;
-					if (backButton->Clicked()) gameState = MENU;
-					if (exitButton->Clicked()) running = false;
-
-				}
-				break;
-
-			case SDL_EVENT_TEXT_INPUT: // It's always listening for keyboard events when the start text input function is called
-
-				if (gameState == NAME_INPUT) { // When the game state switches to NAME_INPUT we add every keayboard event to the playerName string.
-					playerName += event.text.text;
-					std::cout << playerName;
-					break;
-				}
-
-			case SDL_EVENT_KEY_DOWN:
-				if (event.key.key == SDLK_BACKSPACE && !playerName.empty()) playerName.pop_back();
-				if (event.key.key == SDLK_RETURN) {
-					saveToBinary(playerName, points, state);
-					gameState = MENU;
-					playerName = "";
-					break;
-				}
-
-			}
-
-		}
-
-		switch (gameState) {
-
-		case GameState::MENU: {
-			hasReseted = true;
-			SDL_SetRenderDrawColor(state.renderer, 15, 20, 40, 255); // I could do a function for this but I'm super tired rn perhaps I don't even change it LOL
-			SDL_RenderClear(state.renderer);
-			drawButton(state, playButton.get());
-			drawButton(state, rankingButton.get());
-			drawButton(state, creditsButton.get());
-			drawButton(state, exitButton.get());
-			SDL_RenderPresent(state.renderer);
-			break;
-		}
-
-		case GameState::GAME: // I have to reset the gameplay here
-
-			if (hasReseted) {
-				ball->rect.x = width / 2;
-				ball->rect.y = 550; 
-				ball->ballYSpeed = -320.0f;
-				ball->ballXSpeed = 320.0f;
-
-				lPaddle->rect.x = 640;
-				mPaddle->rect.x = 640 + paddleLength;
-				rPaddle->rect.x = 640 + (paddleLength * 2);
-
-				gridOfBricks = createBricks(state);
-
-				lifes = 3;
-				points = 0;
-				hasReseted = false;
-			}
-			breakoutGameplay(state, gridOfBricks, lPaddle, mPaddle, rPaddle, ball, dt, lifes, points, gameState, font);
-			break;
-
-		case GameState::RANKING:
-			SDL_SetRenderDrawColor(state.renderer, 10, 25, 45, 255);
-			SDL_RenderClear(state.renderer);
-			drawButton(state, backButton.get());
-			displayRanking(state, font);
-			SDL_RenderPresent(state.renderer);
-			break;
-
-		case GameState::NAME_INPUT:
-			SDL_StartTextInput(state.window);
-			SDL_SetRenderDrawColor(state.renderer, 15, 20, 40, 255);
-			SDL_RenderClear(state.renderer);
-
-			drawText(state, font, "ENTER YOUR NAME", 68, (width / 2), 150, {255, 255, 255, 255}); // I'm thinking I should've made a const of a color long ago but whataver
-			if (!playerName.empty()) drawText(state, font, playerName, 24, width / 2, height / 2, { 255, 255, 255, 255 });
-
-			SDL_RenderPresent(state.renderer);
-			break;
-
-		case GameState::CREDITS:
-			SDL_SetRenderDrawColor(state.renderer, 10, 35, 35, 255);
-			SDL_RenderClear(state.renderer);
-			drawButton(state, backButton.get());
-			drawText(state, font, "MADE BY", 68, (width / 2), 150, { 255, 255, 255, 255 });
-			drawText(state, font, "NIL BADIA GIMENEZ", 128, (width / 2), (height / 2 - 100), { 255, 255, 255, 255 });
-			SDL_RenderPresent(state.renderer);
-			break;
-
-		default:
-			break;
-		}
-
-
-
-	}
-
-	cleanUp(state);
-	return 0;
-
+    cleanUp(state);
+    return 0;
 }
-
