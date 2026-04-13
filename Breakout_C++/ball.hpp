@@ -17,8 +17,8 @@ public:
 
 	Ball(SDL_FRect rect, SDL_Renderer* renderer, SDL_Color color) : Rectangle(rect, renderer, color) {};
 
-	void UpdateBallPhysics(std::shared_ptr<Rectangle> lPaddle, std::shared_ptr<Rectangle> mPaddle, std::shared_ptr<Rectangle> rPaddle, float dt, int& lifes, GameState& gameState);
-	void CheckCollisions(std::shared_ptr<Rectangle> lPaddle, std::shared_ptr<Rectangle> mPaddle, std::shared_ptr<Rectangle> rPaddle);
+	void UpdateBallPhysics(Rectangle* lPaddle, Rectangle* mPaddle, Rectangle* rPaddle, float dt, int& lifes);
+	void CheckCollisions(Rectangle* lPaddle, Rectangle* mPaddle, Rectangle* rPaddle);
 	//int GetBallSize() { return ballSize; }
 
 private:

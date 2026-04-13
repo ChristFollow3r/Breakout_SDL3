@@ -1,5 +1,8 @@
 #pragma once
+#include <SDL3_ttf/SDL_ttf.h>
+#include <iostream>
 #include "rectangle.hpp"
+#include "gameState.hpp"
 
 class Button : public Rectangle {
 
@@ -13,6 +16,8 @@ public:
 
 	void Hovered();
 	bool Clicked();
+	
+	void DrawButton(SDLState& state);
 	void AddText(SDL_Renderer* renderer);
 
 };

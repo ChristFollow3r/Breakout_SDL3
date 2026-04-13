@@ -11,10 +11,6 @@
 
 const int width = 1280;
 const int height = 720;
-struct SDLState {
-	SDL_Window* window;
-	SDL_Renderer* renderer;
-};
 
 // Text Sutff
 // ***************************************************************************************************************************************
@@ -31,7 +27,7 @@ const int paddleRightLimit = width - paddleLength;
 const int paddleLeftLimit = 0;
 
 void initialize(SDLState& state);
-void render(SDLState& state, std::shared_ptr<Rectangle> lPaddle, std::shared_ptr<Rectangle> mPaddle, std::shared_ptr<Rectangle> rPaddle, std::shared_ptr<Rectangle> ball, std::vector<std::vector<std::shared_ptr<Brick>>> gridOfBricks, GameState& gameState);
+void render(SDLState& state, std::unique_ptr<Rectangle> lPaddle, std::unique_ptr<Rectangle> mPaddle, std::unique_ptr<Rectangle> rPaddle, std::unique_ptr<Rectangle> ball, std::vector<std::vector<std::shared_ptr<Brick>>> gridOfBricks, GameState& gameState);
 std::vector<std::vector<std::shared_ptr<Brick>>> createBricks(SDLState& state);
 float deltaTime(Uint64& lastTick);
 

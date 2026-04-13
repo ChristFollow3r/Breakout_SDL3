@@ -6,7 +6,6 @@
 #include "gameplay.hpp"
 #include "manager.hpp"
 #include "saving.hpp"
-#include "menu.hpp"
 #include "ball.hpp"
 
 int main(int arg, char* argv[]) {

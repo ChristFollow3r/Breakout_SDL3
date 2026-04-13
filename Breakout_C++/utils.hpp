@@ -1,13 +1,19 @@
-#include "menu.hpp"
+#include <SDL3_ttf/SDL_ttf.h>
+#include <iostream>
+#include "gameState.hpp"
 
-void drawButton(SDLState state, Button* button) {
+const int width = 1280;
+const int height = 720;
 
-	button->draw(state, button->rect, button->color);
-	button->AddText(state.renderer);
-	button->Hovered();
+inline float deltaTime(Uint64& lastTick) {
+	Uint64 currentTick = SDL_GetTicks();
+	Uint64 elapedTick = currentTick - lastTick;
+	lastTick = currentTick;
+
+	return static_cast<float>(elapedTick / 1000.0f);
 }
 
-void drawText(SDLState state, TTF_Font* font, std::string text, int fontSize, float x, float y, SDL_Color textColor) {
+inline void drawText(SDLState state, TTF_Font* font, std::string text, int fontSize, float x, float y, SDL_Color textColor) {
 
 	TTF_SetFontSize(font, fontSize);
 	SDL_Surface* surface = TTF_RenderText_Blended(font, text.c_str(), NULL, textColor);

@@ -26,3 +26,10 @@ bool Button::Clicked() {
 void Button::AddText(SDL_Renderer* renderer) {
 	SDL_RenderTexture(renderer, this->texture, nullptr, &this->buttonTextRect);
 }
+
+void Button::DrawButton(SDLState& state) {
+
+	this->draw(state, this->rect, this->color);
+	this->AddText(state.renderer);
+	this->Hovered();
+}

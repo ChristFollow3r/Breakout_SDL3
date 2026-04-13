@@ -6,7 +6,7 @@
 float timer = Ball::ballSpawnTimer;
 bool isDead = false;
 
-void Ball::UpdateBallPhysics(std::shared_ptr<Rectangle> lPaddle, std::shared_ptr<Rectangle> mPaddle, std::shared_ptr<Rectangle> rPaddle, float dt, int& lifes, GameState& gameState) {
+void Ball::UpdateBallPhysics(Rectangle* lPaddle, Rectangle* mPaddle, Rectangle* rPaddle, float dt, int& lifes) {
 
 	if (this->rect.y > height + 40) {
 
@@ -14,7 +14,7 @@ void Ball::UpdateBallPhysics(std::shared_ptr<Rectangle> lPaddle, std::shared_ptr
 			isDead = true;
 			lifes--;
 			if (lifes <= 0) {
-				gameState = NAME_INPUT;
+				// Chnage scene to NameInput
 				return;
 			}
 
@@ -38,7 +38,7 @@ void Ball::UpdateBallPhysics(std::shared_ptr<Rectangle> lPaddle, std::shared_ptr
 	this->CheckCollisions(lPaddle, mPaddle, rPaddle);
 }
 
-void Ball::CheckCollisions(std::shared_ptr<Rectangle> lPaddle, std::shared_ptr<Rectangle> mPaddle, std::shared_ptr<Rectangle> rPaddle) {
+void Ball::CheckCollisions(Rectangle* lPaddle, Rectangle* mPaddle, Rectangle* rPaddle) {
 
 	if (SDL_HasRectIntersectionFloat(&this->rect, &lPaddle->rect)) {
 		ballXSpeed = -abs(ballXConstSpeed); // abs returns an absolute value
