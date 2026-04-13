@@ -17,7 +17,7 @@ class RankingScene : public Scene {
 
 public:
 
-    GameState request = RANKING;
+    GameState gameState = RANKING;
     RankingScene(SDLState& state, TTF_Font* font);
     void HandleEvent(const SDL_Event& event) override;
     void Update(float dt) override;

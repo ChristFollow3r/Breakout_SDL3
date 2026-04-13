@@ -6,7 +6,7 @@ RankingScene::RankingScene(SDLState& state, TTF_Font* font) : state(state), font
 
 void RankingScene::HandleEvent(const SDL_Event& event) {
     if (event.type == SDL_EVENT_MOUSE_BUTTON_DOWN && event.button.button == SDL_BUTTON_LEFT)
-        if (backButton->Clicked()) request = MENU;
+        if (backButton->Clicked()) gameState = MENU;
 }
 
 void RankingScene::Update(float dt) {}

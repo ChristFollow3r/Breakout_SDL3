@@ -21,6 +21,8 @@ void MainMenu::HandleEvent(const SDL_Event& e) {
     }
 }
 
+void MainMenu::Update(float dt) {}
+
 void MainMenu::Render() {
     SDL_SetRenderDrawColor(state.renderer, 15, 20, 40, 255);
     SDL_RenderClear(state.renderer);
