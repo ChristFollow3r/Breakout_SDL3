@@ -27,9 +27,6 @@
     <ClCompile Include="main.cpp">
       <Filter>Archivos de origen</Filter>
     </ClCompile>
-    <ClCompile Include="manager.cpp">
-      <Filter>Archivos de origen</Filter>
-    </ClCompile>
     <ClCompile Include="rectangle.cpp">
       <Filter>Archivos de origen\Class_Definition</Filter>
     </ClCompile>
@@ -41,9 +38,6 @@
     </ClCompile>
     <ClCompile Include="saving.cpp">
       <Filter>Archivos de origen\Class_Definition</Filter>
-    </ClCompile>
-    <ClCompile Include="utils.cpp">
-      <Filter>Archivos de origen</Filter>
     </ClCompile>
     <ClCompile Include="mainMenu.cpp">
       <Filter>Archivos de origen\Class_Definition</Filter>
@@ -62,9 +56,6 @@
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="manager.hpp">
-      <Filter>Archivos de encabezado</Filter>
-    </ClInclude>
     <ClInclude Include="rectangle.hpp">
       <Filter>Archivos de encabezado\Game_Objects_Declaration</Filter>
     </ClInclude>
@@ -76,9 +67,6 @@
     </ClInclude>
     <ClInclude Include="button.hpp">
       <Filter>Archivos de encabezado\Game_Objects_Declaration</Filter>
-    </ClInclude>
-    <ClInclude Include="gameState.hpp">
-      <Filter>Archivos de encabezado</Filter>
     </ClInclude>
     <ClInclude Include="saving.hpp">
       <Filter>Archivos de encabezado</Filter>
@@ -98,11 +86,14 @@
     <ClInclude Include="credits.hpp">
       <Filter>Archivos de encabezado\Class_Declaration</Filter>
     </ClInclude>
-    <ClInclude Include="ranking.hpp">
-      <Filter>Archivos de encabezado</Filter>
+    <ClInclude Include="gameState.hpp">
+      <Filter>Archivos de encabezado\Class_Declaration</Filter>
     </ClInclude>
     <ClInclude Include="nameInput.hpp">
-      <Filter>Archivos de encabezado</Filter>
+      <Filter>Archivos de encabezado\Class_Declaration</Filter>
+    </ClInclude>
+    <ClInclude Include="ranking.hpp">
+      <Filter>Archivos de encabezado\Class_Declaration</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

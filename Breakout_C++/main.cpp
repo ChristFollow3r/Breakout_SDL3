@@ -4,7 +4,6 @@
 #include <memory>
 #include <fstream>
 #include "gameState.hpp"
-#include "manager.hpp"
 #include "mainMenu.hpp"
 #include "gameScene.hpp"
 #include "ranking.hpp"

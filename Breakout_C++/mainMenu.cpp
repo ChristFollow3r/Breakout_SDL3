@@ -1,6 +1,5 @@
 #include "mainMenu.hpp"
 #include "button.hpp"
-#include "utils.hpp"
 
 MainMenu::MainMenu(SDLState& state, TTF_Font* font) : state(state), font(font) {
     int buttonWidth = 200;

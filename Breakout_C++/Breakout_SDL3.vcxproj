@@ -133,12 +133,10 @@
     <ClCompile Include="gameScene.cpp" />
     <ClCompile Include="main.cpp" />
     <ClCompile Include="mainMenu.cpp" />
-    <ClCompile Include="manager.cpp" />
     <ClCompile Include="nameInput.cpp" />
     <ClCompile Include="ranking.cpp" />
     <ClCompile Include="rectangle.cpp" />
     <ClCompile Include="saving.cpp" />
-    <ClCompile Include="utils.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="ball.hpp" />
@@ -148,7 +146,6 @@
     <ClInclude Include="gameScene.hpp" />
     <ClInclude Include="gameState.hpp" />
     <ClInclude Include="mainMenu.hpp" />
-    <ClInclude Include="manager.hpp" />
     <ClInclude Include="nameInput.hpp" />
     <ClInclude Include="ranking.hpp" />
     <ClInclude Include="rectangle.hpp" />

@@ -2,8 +2,8 @@
 #include <iostream>
 #include "gameState.hpp"
 
-const int width = 1280;
-const int height = 720;
+inline const int width = 1280;
+inline const int height = 720;
 
 inline float deltaTime(Uint64& lastTick) {
 	Uint64 currentTick = SDL_GetTicks();
@@ -11,6 +11,30 @@ inline float deltaTime(Uint64& lastTick) {
 	lastTick = currentTick;
 
 	return static_cast<float>(elapedTick / 1000.0f);
+}
+
+inline void initialize(SDLState& state) {
+
+	state.window = SDL_CreateWindow("Breakout", width, height, NULL);
+	state.renderer = SDL_CreateRenderer(state.window, nullptr);
+
+	if (!SDL_Init(SDL_INIT_VIDEO)) {
+		SDL_ShowSimpleMessageBox(SDL_MESSAGEBOX_ERROR, "Error", "Unable to initialize SDL3", nullptr);
+	}
+
+	if (!state.window) {
+		SDL_ShowSimpleMessageBox(SDL_MESSAGEBOX_ERROR, "Error", "Error creating window", nullptr);
+	}
+
+	if (!state.renderer) {
+		SDL_ShowSimpleMessageBox(SDL_MESSAGEBOX_ERROR, "Error", "Error initializingh renderer.", nullptr);
+	}
+}
+
+inline void cleanUp(SDLState& state) {
+	SDL_DestroyRenderer(state.renderer);
+	SDL_DestroyWindow(state.window);
+	SDL_Quit();
 }
 
 inline void drawText(SDLState state, TTF_Font* font, std::string text, int fontSize, float x, float y, SDL_Color textColor) {

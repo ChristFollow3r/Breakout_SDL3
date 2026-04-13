@@ -1,6 +1,5 @@
 #pragma once
 #include "scene.hpp"
-#include "utils.hpp"
 #include "button.hpp"
 
 class CreditsScene : public Scene {

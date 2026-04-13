@@ -1,6 +1,4 @@
 #include "ball.hpp"
-#include "manager.hpp"
-#include "gameplay.hpp"
 
 
 float timer = Ball::ballSpawnTimer;

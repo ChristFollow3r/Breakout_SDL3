@@ -1,8 +1,8 @@
 #pragma once
 #include "scene.hpp"
-#include "utils.hpp"
 #include "saving.hpp"
 #include "gameState.hpp"
+#include <SDL3_ttf/SDL_ttf.h>
 #include <string>
 
 class NameInput : public Scene {

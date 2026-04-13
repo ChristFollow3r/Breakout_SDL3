@@ -1,6 +1,5 @@
 #pragma once
 #include "scene.hpp"
-#include "utils.hpp"
 #include "ball.hpp"
 #include "brick.hpp"
 #include <vector>
@@ -24,7 +23,6 @@ class GameScene : public Scene {
 	std::vector<std::vector<std::unique_ptr<Brick>>> gridOfBricks;
 
 	int lifes;
-	int points;
 	float pointAdder = 0.0f;
 	float waitTimer = 0.0f;
 
@@ -36,6 +34,9 @@ class GameScene : public Scene {
 public:
 
 	GameScene(SDLState& state, TTF_Font* font);
+
+	GameState gameState = GAME;
+	int points;
 
 	void HandleEvent(const SDL_Event& event) override;
 	void Update(float dt) override;
