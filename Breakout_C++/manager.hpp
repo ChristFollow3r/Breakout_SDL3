@@ -19,23 +19,10 @@ bool loadingScreen(SDLState state, float dt, TTF_Font* font, SDL_Texture* textur
 std::unique_ptr<Button> createButton(TTF_Font* font, SDLState state, std::string buttonText, float xPosition, float yPosition);
 // ***************************************************************************************************************************************
 
-// Breakout stuff
-// ***************************************************************************************************************************************
-const float paddleSpeed = 600.0f;
-const int paddleLength = 33;
-const int paddleRightLimit = width - paddleLength;
-const int paddleLeftLimit = 0;
-
 void initialize(SDLState& state);
 void render(SDLState& state, std::unique_ptr<Rectangle> lPaddle, std::unique_ptr<Rectangle> mPaddle, std::unique_ptr<Rectangle> rPaddle, std::unique_ptr<Rectangle> ball, std::vector<std::vector<std::shared_ptr<Brick>>> gridOfBricks, GameState& gameState);
 std::vector<std::vector<std::shared_ptr<Brick>>> createBricks(SDLState& state);
-float deltaTime(Uint64& lastTick);
 
-void paddleMovement(std::shared_ptr<Rectangle> lPaddle, std::shared_ptr<Rectangle> mPaddle, std::shared_ptr<Rectangle> rPaddle, float dt);
-void paddleBorderCollisions(std::shared_ptr<Rectangle> lPaddle, std::shared_ptr<Rectangle> mPaddle, std::shared_ptr<Rectangle> rPaddle);
-bool brickCollisions(std::vector<std::vector<std::shared_ptr<Brick>>>& gridOfBricks, std::shared_ptr<Rectangle> ball);
-
-// ***************************************************************************************************************************************
 
 
 void cleanUp(SDLState& state);

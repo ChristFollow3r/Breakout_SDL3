@@ -1,3 +1,4 @@
+#pragma once
 #include "scene.hpp"
 #include "gameState.hpp"
 #include "button.hpp"
@@ -17,6 +18,7 @@ class MainMenu : public Scene {
 public:
 
 	MainMenu(SDLState& state, TTF_Font* font);
+	GameState gameState = MENU;
 
 	void HandleEvent(const SDL_Event& event) override;
 	void Update(float dt) override;

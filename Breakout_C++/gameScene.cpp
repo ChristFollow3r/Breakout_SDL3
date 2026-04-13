@@ -117,7 +117,7 @@ void GameScene::Reset() {
 }
 
 void GameScene::HandleEvent(const SDL_Event& event) {
-    // paddle input can go here if you move it out of breakoutGameplay
+    // I DONT KNOW
 }
 
 void GameScene::Update(float dt) {

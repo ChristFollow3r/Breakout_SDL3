@@ -15,10 +15,10 @@ MainMenu::MainMenu(SDLState& state, TTF_Font* font) : state(state), font(font) {
 
 void MainMenu::HandleEvent(const SDL_Event& e) {
     if (e.type == SDL_EVENT_MOUSE_BUTTON_DOWN && e.button.button == SDL_BUTTON_LEFT) {
-        if (playButton->Clicked()) { /* switchTo GameScene */ }
-        if (rankingButton->Clicked()) { /* switchTo RankingScene */ }
-        if (creditsButton->Clicked()) { /* switchTo CreditsScene */ }
-        if (exitButton->Clicked()) { /* signal quit */ }
+        if (playButton->Clicked()) gameState = GAME;
+        if (rankingButton->Clicked()) gameState = RANKING;
+        if (creditsButton->Clicked()) gameState = CREDITS;
+        if (exitButton->Clicked()) gameState = EXIT;
     }
 }
 
