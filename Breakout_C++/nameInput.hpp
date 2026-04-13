@@ -1,7 +1,6 @@
 #pragma once
 #include "scene.hpp"
 #include "saving.hpp"
-#include "gameState.hpp"
 #include <SDL3_ttf/SDL_ttf.h>
 #include <string>
 

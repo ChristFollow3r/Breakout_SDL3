@@ -15,7 +15,7 @@ void RankingScene::Render() {
     SDL_SetRenderDrawColor(state.renderer, 10, 25, 45, 255);
     SDL_RenderClear(state.renderer);
     backButton->DrawButton(state);
-    RankingScene::DisplayRanking(state, font);
+    RankingScene::DisplayRanking(font);
     SDL_RenderPresent(state.renderer);
 }
 

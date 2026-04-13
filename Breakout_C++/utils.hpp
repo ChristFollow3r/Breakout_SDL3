@@ -1,3 +1,4 @@
+#pragma once
 #include <SDL3_ttf/SDL_ttf.h>
 #include <iostream>
 #include "gameState.hpp"
