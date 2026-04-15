@@ -12,7 +12,7 @@ void Ball::UpdateBallPhysics(Rectangle* lPaddle, Rectangle* mPaddle, Rectangle* 
 			isDead = true;
 			lifes--;
 			if (lifes <= 0) {
-				// Chnage scene to NameInput
+				// I have to figure out where to write this shit now
 				return;
 			}
 

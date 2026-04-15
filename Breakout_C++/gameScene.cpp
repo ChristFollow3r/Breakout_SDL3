@@ -123,7 +123,7 @@ void GameScene::Reset() {
 }
 
 void GameScene::HandleEvent(const SDL_Event& event) {
-    // No events to be handeled here
+    // Nothing to see here
 }
 
 void GameScene::Update(float dt) {
@@ -150,6 +150,8 @@ void GameScene::Render() {
     SDL_Color black = { 0, 0, 0, 255 };
     SDL_SetRenderDrawColor(state.renderer, 255, 255, 255, 255);
     SDL_RenderClear(state.renderer);
+
+    if (lifes <= 0) gameState = NAME_INPUT;
 
     lPaddle->draw(state, lPaddle->rect, lPaddle->color);
     mPaddle->draw(state, mPaddle->rect, mPaddle->color);

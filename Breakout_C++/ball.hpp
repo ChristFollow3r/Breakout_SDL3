@@ -9,6 +9,7 @@ public:
 
 	static const int ballSize = 20;
 	static constexpr float ballSpawnTimer = 3.0f; // I had to ask AI this. WHY THE FUCK CAN'T I DO STATIC CONST OF A FLOAT WHAT A FUCKING STUPID RULE THAT IS
+	//GameState gameState;
 
 	const float ballXConstSpeed = 320.0f;
 
