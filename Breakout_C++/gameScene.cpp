@@ -84,15 +84,21 @@ void GameScene::PaddleBorderCollisions() {
 
 bool GameScene::BrickCollisions() {
 
+    int emptyCheck = 0;
 
     for (int i = 0; i < gridOfBricks.size(); i++) {
 
-        for (auto it = gridOfBricks[i].begin(); it != gridOfBricks[i].end(); ++it) {
+        if (emptyCheck == 7) gameState = NAME_INPUT;
+        if (gridOfBricks[i].empty()) emptyCheck++;
+
+        for (auto it = gridOfBricks[i].begin(); it != gridOfBricks[i].end(); ++it) {          
 
             if (SDL_HasRectIntersectionFloat(&(*it)->rect, &ball->rect)) { // I asked I how to dereference it cause static_cast to int doesn't work.
                 gridOfBricks[i].erase(it);
+                std::cout << "Bricks left in" << i << " row: " << gridOfBricks[i].size() << "\n";
                 return true;
             }
+
         }
     }
 
@@ -117,7 +123,7 @@ void GameScene::Reset() {
 }
 
 void GameScene::HandleEvent(const SDL_Event& event) {
-    // I DONT KNOW
+    // No events to be handeled here
 }
 
 void GameScene::Update(float dt) {

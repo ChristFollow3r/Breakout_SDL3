@@ -24,6 +24,7 @@ std::vector<std::pair<std::string, int>> RankingScene::SortRanking() {
     std::vector<std::pair<std::string, int>> sortedRankingContent = RankingScene::GetBinaryInfo();
     std::vector<std::pair<std::string, int>> top5;
 
+    // AI gave me this lambda; if the first value of the std::pair was the int I wouldn't need the lambda. I would just need something for the descending order
     std::sort(sortedRankingContent.begin(), sortedRankingContent.end(), [](auto& a, auto& b) { return a.second > b.second; }); // I asked AI if sorting like that would sort by the int (the second) or by the strinig (the first)
     // and it said it would do it by the string and that I need a lambda to tell the sorting alogrythm how to sort the vector of pairs.
     // Theres also this function called std::greater whichs appears to do the same as im doing here but the documentation: https://en.cppreference.com/w/cpp/utility/functional/greater.html it's so ugly
@@ -46,7 +47,7 @@ std::vector<std::pair<std::string, int>> RankingScene::GetBinaryInfo() {
 
 
     while (file.peek() != EOF) { // Claude is telling me that this loop was reading garbage values and that thats why the release was freaking out
-        // When saving the name I dont think thats it but at this point im willing to try anything
+        // I got a binary with 2 million bytes or something like that (only happening with the release though, not with the debugger...).
         int size;
         std::pair<std::string, int> temp;
 
