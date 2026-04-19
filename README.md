@@ -19,7 +19,8 @@
   the .dll's and shit and I'm not feeling like doing that again. I mean the game behaves the exact same (the only difference is that the OOP code doesn't have the loading screen.
   Not worth making a class for that). If you want to see the OOP code in action I can send you a video or show it to you in class.
 
-  Also the diagram that has the ball and rectangle and button and idk what else. That's incomplete. I did it before the "Holy Refactor" and I'm not doing it again :V
+  Also the diagram that has the ball and rectangle and button and idk what else. That's incomplete. I did it before the "Holy Refactor" and it's missing stuff.
+  I'm not doing it again :V
 
   Last thing, maybe. The sorting algorithm (I thought it was written we could use any sorting algoithm from libraries, but turns out the library part, I made that up). Maybe ADHD
   kicked in (as you can tell by now I didn't read the requirements that much). If it counts for something, I thought that was legal.
