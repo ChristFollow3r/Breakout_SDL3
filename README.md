@@ -1,7 +1,7 @@
 # ABOUT THE PROJECT
 
 * There's another readme, kinda long, in the previous commits. You can read that if you want, there's more information about this project, but I'm going to write in here
-  what's only relevant for this specific commit (actually the ones after the "Holy Refactor"). *
+  what's only relevant for this specific commit (actually the ones after the "Holy Refactor").
 
   I used AI to help me refactor this cause it was TOO MUCH to refactor. So the way I used AI when I decided to make this program OOP was basically grabbing all the files
   that where supossed to be classes and telling AI to make the class (we'll not for the first two classes, but after the second one I got tired of copy-pasting and decided
