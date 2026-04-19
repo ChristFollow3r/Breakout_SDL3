@@ -1,29 +1,28 @@
 # ABOUT THE PROJECT
 
-I'm doing this alone cause I cannot force anyone in the class to use SDL.
+* There's another readme, kinda long, in the previous commits. You can read that if you want, there's more information about this project, but I'm going to write in here
+  what's only relevant for this specific commit (actually the ones after the "Holy Refactor"). *
 
-> The only thing new with pure SDL3 that I used in this program was: SDL_HasRectIntersectionFloat. I already did a collision system for my powder toy clone, but I was using a grid there, so the collision was pretty straight forward,
-probably the same thing those who are using the console for the breakout use. You can check out the code of my powder toy clone, its an open repo in my github. I thought in my case made much more sense to use this function to check for collisions than using a grid.
+  I used AI to help me refactor this cause it was TOO MUCH to refactor. So the way I used AI when I decided to make this program OOP was basically grabbing all the files
+  that where supossed to be classes and telling AI to make the class (we'll not for the first two classes, but after the second one I got tired of copy-pasting and decided
+  to speed up the process).
 
-> Also I "yipidi yapidy my code was always my property" from my powder toy clone the delta time function and the rendering stuff. Just that the rendering stuff has been tweaked to suit the necessities of this programm (it's not a stragith
-copy paste, that wouldn't work).
+  After all files where separated into their own class (they all inhereted from Scene) I "Control A" my previous main and told claude to change it to use the classes.
+  Why am I telling this to you? We'll I dont wan't to fail, and I rather be honest about it. The way I see it, is that it's basically the same as I had, but instead of having
+  a massive chaotic main (not really, but you get the point), I just have everything neat and tidy in main with classes.
 
-> About the libraries, SDL3 was already on my working enviroment (It was set up before starting with this), and I asked AI how to install the ttf library (It was only a comand on the cmd). Maybe I add sound to the game, but as for now i'll
-foccus on having the basics done.
+  After that, nothing was working (100 plus erros), and I had to fix it. And after having that working again I had to redo the "win mechanic" of the game cause it broke.
 
-> About SDL_ttf I had no clue about the library, I've been asking AI for function explanations and watched tutorials on youtube: https://www.youtube.com/watch?v=sZePzgwJtj0&t=197s || https://www.youtube.com/watch?v=9AoEQOzi7aM <br>
-> I also looked for functinos that might suit my purposes on this md: https://wiki.libsdl.org/SDL3_ttf/QuickReference  though im pretty bad at reading documentation so once I found a function that might do what I want I would just ask
-AI if that function did indeed what I thought it did. I'm writing this on the 28/03/2026, maybe I get better at reading documentation along the way, who knows.
+  If you have any questions, feel free to ask.
 
-> I write this cause I feel this parts requires a proper explanation since I never touched it, so I don't get flaged with stolen code or AI generated code (even though this is essentially the same as the std::cout that comes with the iostream library, so it shouldn't be a problem).
+  !IMPORTANT! The release that you can download it's not the one that uses the OOP code, it's the previous one. I spent like an hour trying to make the thing work setting up all
+  the .dll's and shit and I'm not feeling like doing that again. I mean the game behaves the exact same (the only difference is that the OOP code doesn't have the loading screen.
+  Not worth making a class for that).
 
-> I also used AI every single time I had circular libraries issues (so far about 3 times). 
+  Also the diagram that has the ball and rectangle and button and idk what else. That's incomplete. I did it before the "Holy Refactor" and I'm not doing it again :V
 
-<b>If you have any questions feel free to ask.</b>
+  Last thing, maybe. The sorting algorythm (I thought it was written we could use any sorting algorythm from libraries, but turns out the library part, I made that up). Maybe ADHD
+  kicked in (as you can tell by now I didn't read the requirements that much). If it counts for something, I though that was legal.
 
-> PD: I was going to do the breakout with Pau, but dude wanted to use a kind of engine he made and theres no way I was going to learn to use his "engine". Also dude waits until the last day to do this kind of stuff and I want this
-to be done before monday so I can relax while on vacation.
-
-<h2>KNOWN BUGS</h2>
-- If you click with the mouse on the "enter your name scene", the game will take you to the credits scene :) <br>
-- After every first game, the second time the player losses one life it won't count it, and the number will only drop the next time he losses the ball.
+  Anyways, moral of the story. If you have to fail me, it's fair, I won't complain. I lernt a lot, and that's what matters to me, and we are seeing each other on June anyways :)
+  
