@@ -17,7 +17,7 @@
 
   !IMPORTANT! The release that you can download it's not the one that uses the OOP code, it's the previous one. I spent like an hour trying to make the thing work setting up all
   the .dll's and shit and I'm not feeling like doing that again. I mean the game behaves the exact same (the only difference is that the OOP code doesn't have the loading screen.
-  Not worth making a class for that).
+  Not worth making a class for that). If you want to see the OOP code in action I can send you a video or show it to you in class.
 
   Also the diagram that has the ball and rectangle and button and idk what else. That's incomplete. I did it before the "Holy Refactor" and I'm not doing it again :V
 
